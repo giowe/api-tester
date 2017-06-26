@@ -1,4 +1,4 @@
 {
 	"method" : "GET",
-	"path" : "principals/users/"
+	"path" : "/principals/users"
 }

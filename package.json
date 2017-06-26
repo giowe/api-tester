@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/giowe/api-tester#readme",
   "dependencies": {
-    "expect": "^1.20.2"
+    "chai": "^4.0.2",
+    "expect": "^1.20.2",
+    "node-fetch": "^1.7.1",
+    "request": "^2.81.0"
   }
 }

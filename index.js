@@ -3,6 +3,9 @@
 const request = require("request");
 const { expect } = require('chai');
 const chooseTest = require('./utils/choose-test')
+const init = require('./init.js')
+
+init();
 
 chooseTest.then(result => {
   const testName = result['Test'];

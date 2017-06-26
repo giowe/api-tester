@@ -1,0 +1,10 @@
+{
+  "method": "POST",
+  "path": "/principal/users/",
+  "headers":{
+    "Content-Type": "application/json"
+},
+  "body":{
+
+  }
+}

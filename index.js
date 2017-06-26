@@ -5,8 +5,7 @@ const { expect } = require('chai');
 const chooseTest = require('./utils/choose-test');
 const init = require('./init.js');
 const chalk = require('chalk');
-
-init();
+const diff = require('recursive-diff');
 
 const verbose = true;
 
@@ -29,12 +28,14 @@ chooseTest.then(result => {
         }
         else {
           body = JSON.parse(body);
-          if (body !== sample) {
-            const errorMessage = `Received \n${chalk.red(JSON.stringify(body))}, but should be equal to \n${chalk.green(JSON.stringify(sample))}`;
+          try {
+            expect(body).to.deep.equal(sample)
+            console.log(chalk.green('Done!!!'));
+        } catch (err) {
+            const differences = diff.getDiff(body, sample);
+            console.log(differences)
             console.log(errorMessage);
-            process.exit();
-          } 
-          console.log(chalk.green('Done!!!'));
+          }
         }
       } 
     );

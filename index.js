@@ -5,7 +5,7 @@ const samplesTestContents = JSON.parse(require('./tests/test-contents/sample.jso
 
 testContents.then((res) => {
   // vari expects
-  // res deve essere uguale a samplesTestContents 
+  // res deve essere uguale a samplesTestContents
 }).catch(
   // thow error request failed
 );

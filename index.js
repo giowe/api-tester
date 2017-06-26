@@ -1,8 +1,8 @@
 const expect = require('expect');
 const fs = require ('fs');
 const testContents = require('./tests/test-contents');
-const samplesTestContents = JSON.parse(fs.Sync('./tests/test-contents/sample.json'));
-const opt = JSON.parse(require('./confing.json'));
+const samplesTestContents = JSON.parse(fs.readFileSync('./tests/test-contents/sample.json'));
+const opt = JSON.parse(fs.readFileSync('./config.json'));
 const http = require('http');
 
 

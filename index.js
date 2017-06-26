@@ -1,15 +1,19 @@
 "use strict";
 
+const https = require("https")
 const expect = require('expect');
 const fs = require ('fs');
 const testUsers = require('./tests/test-users');
-const http = require('http');
 
 testUsers.then((result) => {
   const sample = result.sample
   const config = result.config
+  console.log(config)
   // vari expects
-  http.request(config, (res) => {
+  https.request(config, (res) => {
+    res.on('data', () => {
+      console.log('ciao')
+    })
     res.on('end', () => {
       expect(res).toBe(sample);
     });

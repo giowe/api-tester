@@ -2,3 +2,6 @@
 node_modules/
 dist.zip
 *.log
+
+tests/test-contents/url-secret.json
+tests/test-users/url-secret.json

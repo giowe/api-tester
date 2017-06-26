@@ -1,23 +1,30 @@
 "use strict";
 
-const https = require("https")
-const expect = require('expect');
-const fs = require ('fs');
+const request = require("request");
+const { expect, it } = require('chai');
 const testUsers = require('./tests/test-users');
 
 testUsers.then((result) => {
   const sample = result.sample
-  const config = result.config
-  console.log(config)
+  const {method, host, path} = result.config
+
+  const opt = {
+    method,
+    uri : `${host}${path}`
+  }
   // vari expects
-  https.request(config, (res) => {
-    res.on('data', () => {
-      console.log('ciao')
-    })
-    res.on('end', () => {
-      expect(res).toBe(sample);
-    });
-  })
+  request(
+    opt, (err, res, body) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        body = JSON.parse(body);
+        expect(body).to.deep.equal(sample);
+        console.log("Fatto");
+      }
+    } 
+  )
 // res deve essere uguale a samplesTestContents
 }).catch((err) => console.log('sono qui', err)
   // thow error request failed

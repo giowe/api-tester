@@ -1,6 +1,5 @@
 {
   "method" : "GET",
-  "host": "api-staging-f3.soluzionifutura.it",
   "path": "/contents/contents"
 //   "payload": {
 //     headers: {

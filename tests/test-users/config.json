@@ -1,7 +1,7 @@
 {
 	"method" : "GET",
 	"host" : "https://api-staging-f3.soluzionifutura.it/",
-	"path" : "tests/test-users",
+	"path" : "/principals/users",
 	/*"payload" : {
 		"headers" :"",
 		"body" : ""

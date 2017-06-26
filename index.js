@@ -1,6 +1,6 @@
 const expect = require('expect');
 
-const testContents = require('./tests/tests-contents');
+const testContents = require('./tests/test-contents');
 const samplesTestContents = JSON.parse(require('./tests/test-contents/sample.json'));
 
 testContents.then((res) => {

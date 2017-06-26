@@ -5,3 +5,4 @@ dist.zip
 
 tests/test-contents/url-secret.json
 tests/test-users/url-secret.json
+utils/config.json

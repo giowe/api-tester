@@ -1,7 +1,5 @@
 "use strict";
 
-const http = require('http');
-const fs = require('fs');
 
 const myPromise = new Promise((resolve, reject) => {
 	const config = require('./config.json');

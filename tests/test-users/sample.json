@@ -1,0 +1,1 @@
+{"count":2,"skip":0,"limit":100,"nextSkip":null,"total":2,"data":[{"id":1,"login":"admin","status":1,"firstName":"Admin","lastName":"Admin"},{"id":2,"login":"test","status":1,"firstName":"Autore","lastName":"Test"}]}

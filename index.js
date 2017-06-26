@@ -1,17 +1,20 @@
+"use strict";
+
 const expect = require('expect');
 const fs = require ('fs');
-const testContents = require('./tests/test-contents');
-console.log(fs.readFileSync('./tests/test-contents/sample.json', 'utf8'))
-const samplesTestContents = JSON.parse();
-const opt = JSON.parse(fs.readFileSync('./config.json'));
+const testUsers = require('./tests/test-users');
 const http = require('http');
 
-
-
-testContents.then((res, sample) => {
+testUsers.then((result) => {
+  const sample = result.sample
+  const config = result.config
   // vari expects
-  expect(res).toBe(sample);
+  http.request(config, (res) => {
+    res.on('end', () => {
+      expect(res).toBe(sample);
+    });
+  })
 // res deve essere uguale a samplesTestContents
-}).catch(
+}).catch((err) => console.log('sono qui', err)
   // thow error request failed
 );

@@ -1,13 +1,15 @@
+"use strict";
+
 const http = require('http');
 const fs = require('fs');
 
-const myPromise = new promise((resolve, reject) => {
-	const config = JSON.parse(fs.readFileSync('./config.json'));
-	const sample = JSON.parse(fs.readFileSync('./sample.json'));
-	const urlSecret = JSON.parse(fs.readFileSync('./url-secret.json'));
+const myPromise = new Promise((resolve, reject) => {
+	const config = require('./config.json');
+	const sample = require('./sample.json');
+	const urlSecret = require('./url-secret.json');
   // eventuale auth
 	Object.assign(config, urlSecret);
-	resolve(config, sample);
+	resolve({ config, sample });
 	});
 
 module.exports = myPromise;

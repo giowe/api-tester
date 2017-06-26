@@ -1,6 +1,5 @@
 "use strict";
 
-
 const myPromise = new Promise((resolve, reject) => {
 	const config = require('./config.json');
 	const sample = require('./sample.json');

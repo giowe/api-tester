@@ -2,7 +2,7 @@
 
 const clean = reuqire("../schema/clean");
 
-const auth = require('../utils/auth.js');
+const auth = require('./auth.js');
 
 const baseTest = require('./baseTestNoClean');
 

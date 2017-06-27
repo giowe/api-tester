@@ -1,6 +1,6 @@
 "use strict";
 
-const auth = require('../../utils/auth.js');
+const auth = require('../auth.js');
 const config = {
   "method" : "DELETE",
   "path" : "/principals/users",

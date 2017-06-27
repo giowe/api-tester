@@ -1,15 +1,18 @@
 {
-  "count": 1,
-  "data": [
-    {
-      "fieldCount": 0,
-      "affectedRows": 1,
-      "insertId": 6,
-      "serverStatus": 3,
-      "warningCount": 0,
-      "message": "",
-      "protocol41": true,
-      "changedRows": 0
-    }
-  ]
+  "status": 200,
+  "body": {
+    "count": 1,
+    "data": [
+      {
+        "fieldCount": 0,
+        "affectedRows": 1,
+        "insertId": 6,
+        "serverStatus": 3,
+        "warningCount": 0,
+        "message": "",
+        "protocol41": true,
+        "changedRows": 0
+      }
+    ]
+  }
 }

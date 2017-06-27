@@ -19,7 +19,7 @@ const params = {
   output
 };
 
-module.exports = new Promise((resolve, reject) => {
+module.exports = () => new Promise((resolve, reject) => {
   clean(true)
     .then((data) => {
       console.log(data);

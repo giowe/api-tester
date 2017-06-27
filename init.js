@@ -1,26 +1,30 @@
-const argv = require('yargs').argv;
-const readline = require('readline');
+const argv = require('yargs').demand(1).argv;
 let tests = {};
-const init = {
-  "verbose" : "false"
-};
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+let arr = [];
+let finalarr = [];
+const init = {};
 
 if(argv.verbose){
   let verb = {
-    "verbose" : "true"
+    "verbose" : true
+  }
+  Object.assign(init,verb);
+}else{
+  let verb = {
+    "verbose" : false
   }
   Object.assign(init,verb);
 }
 
+arr
+for (var i = 0, len = argvs._.length; i < len; i++) {
+  const strArr = argvs._[i].split("");
+  console.log(strArr)
+}
+
 tests = {
-  "name" : argv._
+  "name" : finalarr
 }
 Object.assign(init,tests);
-console.log(init)
-rl.close();
 
 module.exports = init;

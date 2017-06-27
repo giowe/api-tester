@@ -1,17 +1,18 @@
-const config = require("./config.json");
-var request = require('request');
-var token;
+const request = require('request');
 
-const options = {
-  method: 'POST',
-  uri: config.url,
-  json: config.body
-}
+module.exports = new Promise((resolve, reject) => {
+  request( {
+    method: 'POST',
+    uri: config.url,
+    json: {
+      login: 'admin',
+      password: 'admin'
+    }
+  }, (error, response, body) => {
+    if (!error && response.statusCode === 200) {
+      return resolve(body.authorization);
+    }
 
-request(options, function (error, response, body) {
-  if (!error && response.statusCode == 200) {
-    token = body.authorization;
-  }
+    reject(error || body);
+  });
 });
-
-module.exports = token;

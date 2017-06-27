@@ -2,8 +2,6 @@
 
 const clean = require('../schema/clean.js');
 
-const baseTest = require("./baseTestNoClean");
-
 const auth = require('../utils/auth.js');
 
 const path = "contents/contents/it/home";

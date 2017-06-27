@@ -5,7 +5,7 @@ const { expect } = require('chai');
 const chooseTest = require('./utils/choose-test');
 const init = require('./init.js');
 const chalk = require('chalk');
-const diff = require('recursive-diff');
+const getErrorMessage = require('./getErrorMessage');
 
 const verbose = true;
 
@@ -32,9 +32,9 @@ chooseTest.then(result => {
             expect(body).to.deep.equal(sample)
             console.log(chalk.green('Done!!!'));
         } catch (err) {
-            console.log(differences)
-
-            console.log(errorMessage);
+          const type = res.headers['content-type'].split('; ')[0];
+          getErrorMessage(body, sample, type);
+            // console.log(errorMessage);
           }
         }
       } 

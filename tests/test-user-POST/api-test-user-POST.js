@@ -1,6 +1,6 @@
 "use strict";
 
-const auth = require('../utils/auth.js');
+const auth = require('../../utils/auth.js');
 
 const config = {
   "method": "POST",
@@ -13,7 +13,7 @@ const config = {
 
 
 const promise = new promise((resolve,reject) =>{
-  Object.assign(config, {Authorization: auth});
+  Object.assign(config , {Authorization: auth});
   resolve(config,sample);
 });
 

@@ -1,10 +1,34 @@
 const baseTest = require('./baseTestNoClean');
 
+const clean = require('../schema/clean');
+
+const path = 'contents/contents/it/home';
+
+const method = 'PUT';
+
+const auth = require('../utils/auth.js');
+
+const config = {
+  "method": method,
+  "path": path,
+  "headers":{
+    "Content-Type": "application/json",
+    "Authorization": auth
+  }
+};
+
+clean.then((resolve) =>{
+  const promise = new promise((resolve,reject) =>{
+    Object.assign(config , {Authorization: auth});
+    resolve(config,sample);
+  });
+
+});
+
+
 const payload = {
   title: 'titolo home cambiato'
 };
-const path = 'contents/contents/it/home';
-const method = 'PUT';
 
 const test = (terminatePool = false) =>
   baseTest(

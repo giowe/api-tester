@@ -1,33 +1,48 @@
-const baseTest = require('./baseTestNoClean');
+'use strict';
 
-const payload = {
-  categories: [
-    {
-      lang: 'it',
-      permalink: 'caneItaliano'
-    },
-    {
-      lang: 'it',
-      permalink: 'mangoItaliano'
-    }
-  ]
-};
-const path = 'contents/contents/it/home';
+const auth = require('./auth.js');
 const method = 'PUT';
+const path = 'contents/contents/it/home';
+const output = require('./api-tester-create-rel-embedsMany-sample.json');
+const urlJoin = require('ulr-join');
+const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 
-const test = (terminatePool = false) =>
-  baseTest(
-    path,
-    method,
-    JSON.stringify(payload),
-    terminatePool
-  );
+const params = {
+  status: 200,
+  method,
+  path,
+  uri: urlJoin(urlSecret, path),
+  input: {
+    headers: {
+      'content-type': "application/json",
+    },
+    body: {
+      categories: [
+        {
+          lang: 'it',
+          permalink: 'caneItaliano'
+        },
+        {
+          lang: 'it',
+          permalink: 'mangoItaliano'
+        }
+      ]
+    },
+  },
+  output
+};
 
-// eslint-disable-next-line
-if (process.argv[1] === __filename) {
-  test(true)
-    .then(data => { console.log(data); })
-    .catch(error => { console.error(error); });
-}
-
-module.exports = test;
+module.exports = () => new Promise((resolve, reject) => {
+  clean(true)
+    .then((data) => {
+      console.log(data);
+      return auth();
+    })
+    .then((token) => {
+      params.input.headers.authorization = token;
+      resolve(params);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+});

@@ -1,6 +1,6 @@
 'use strict';
 
-const clean = reuqire("../schema/clean");
+const clean = require("../schema/clean");
 
 const auth = require('./auth.js');
 const method = 'POST';
@@ -10,7 +10,6 @@ const urlJoin = require('url-join');
 const output = require('api-tester-create-rel-hasMany-sample.json');
 
 const params = {
-  status: 200,
   method,
   path,
   uri: urlJoin(urlSecret, path),

@@ -8,6 +8,7 @@ const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
 
 const params = {
+  status: 200,
   method,
   path,
   uri: urlJoin(urlSecret,path),

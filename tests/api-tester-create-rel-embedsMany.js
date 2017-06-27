@@ -3,12 +3,17 @@
 const clean = reuqire("../schema/clean");
 
 const auth = require('./auth.js');
-const path = 'contents/contents';
 const method = 'POST';
+const path = 'contents/contents';
+const output = require('./api-tester-create-rel-embedsMany-sample.json');
+const urlJoin = require('ulr-join');
+const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 
 const params = {
+  status: 200,
   method,
   path,
+  uri: urlJoin(urlSecret, path),
   input:
   {
     headers: {
@@ -54,9 +59,9 @@ const params = {
         lang: 'it'
       }
     }
-  }
+  },
+  output
 };
-const sample = require('./api-tester-create-rel-embedsMany-sample.json');
 
 module.exports = () => new Promise((resolve, reject) => {
   clean(true)

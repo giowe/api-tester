@@ -21,6 +21,6 @@ tests = {
 }
 Object.assign(init,tests);
 console.log(init)
-rl.close();
+//rl.close();
 
 module.exports = init;

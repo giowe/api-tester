@@ -8,10 +8,7 @@ if (argv.v || argv.version) {
 
 const params = {
   verbose: argv.verbose,
-  tests: argv._.map((testPath) => {
-    const promise = require(testPath);
-    return promise;
-  })
+  tests: argv._.map((testPath) => require(testPath))
 };
 
 module.exports = params;

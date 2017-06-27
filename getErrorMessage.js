@@ -1,4 +1,5 @@
 const chalk = require('chalk');
+const columnify = require('columnify')
 
 const isEmptyObject = (obj)  => {
   for (let name in obj) return false;
@@ -22,29 +23,36 @@ const diff = (obj1, obj2) => {
   return result;
 };
 
+const printObj = (result, sample, type, differences) => {
+  const columns = [];
+  const differencesKeys = Object.keys(differences);
+  const resultKeys = Object.keys(result);
+  const sampleKeys = Object.keys(sample);
+  let errorMessage = '';
+  resultKeys.forEach(key => {
+      if (differencesKeys.indexOf(key) !== -1) {
+        const value = result[key];
+        if (typeof value === 'object' && value !== null) {
+          columns.push({[key]: printObj(value, sample[key], type, diff(value, sample[key])) });
+        } else { //use else if
+          columns.push({result: chalk.red(`${key}: ${result[key]}`), sample: `${sampleKeys.indexOf(key) !== -1 ? 
+                                                      chalk.green(`${key}: ${sample[key]}`) :
+                                                      ''}` });
+        }                                            
+      } else {
+        columns.push({result: `${key}: ${result[key]}`, sample: `${sampleKeys.indexOf(key) !== -1 ? 
+                                                      `${key}: ${sample[key]}` :
+                                                      ''}` });
+      }
+  });
+  return errorMessage;
+}
+
 const getErrorMessage = (result, sample, type) => {
   let errorMessage = '';
   if (type === 'application/json') {
-    errorMessage += '{\n  result\t\tsample\n';
-    const differences = diff(result, sample);
-    const resultKeys = Object.keys(result);
-    console.log(resultKeys)
-    const sampleKeys = Object.keys(sample);
-    console.log(sampleKeys);
-    resultKeys.forEach(key => {
-      let msg = ''
-      if (differences[key]) {
-        msg += `  ${chalk.red(`${key}: ${result[key]}`)}\t\t${sample[key] ? 
-                                                      chalk.green(`${key}: ${sample[key]}`) :
-                                                      ''}\n`;
-      } else {
-        msg += `  ${key}: ${result[key]}\t\t${sample[key] ? 
-                                                      `${key}: ${sample[key]}` :
-                                                      ''}\n`;
-      }
-      errorMessage += msg;
-  });
-  console.log(errorMessage);
+    const columns = printObj(result, sample, type, diff(result, sample));
+    console.log(columns);
   }
 };
 

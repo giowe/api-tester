@@ -14,7 +14,7 @@ chooseTest.then(result => {
   const test = require(`${process.cwd()}/${testName}`);
   test.then((result) => {
     const sample = result.sample;
-    const {method, host, path} = result.config;
+    const { method, host, path } = result.config;
 
     const opt = {
       method,
@@ -32,8 +32,8 @@ chooseTest.then(result => {
             expect(body).to.deep.equal(sample)
             console.log(chalk.green('Done!!!'));
         } catch (err) {
-            const differences = diff.getDiff(body, sample);
             console.log(differences)
+
             console.log(errorMessage);
           }
         }

@@ -2,7 +2,7 @@
 
 const clean = require('../schema/clean.js');
 
-const auth = require('../utils/auth.js');
+const auth = require('./auth.js');
 
 const path = "contents/contents/it/home";
 const method = "DELETE";

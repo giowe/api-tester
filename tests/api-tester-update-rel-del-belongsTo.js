@@ -1,25 +1,26 @@
 'use strict';
 
+const path = 'contents/contents/it/home';
+const method = 'PUT';
+const auth = require('../utils/auth.js');
+const output = require('./api-tester-update-rel-del-belongs-sample.json');
+const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
+const urlJoin = require('url-join');
 const clean = require('../schema/clean');
-const auth = require('../utils/auth');
-const output = require('tests/api-tester-create-schema-error-sample.json');
-const Join = require('utl-join');
-const url = 'https://api-staging-f3.soluzionifutura.it' ;
-const path = '/contents/types';
-const uri = Join(url, path);
 
 
 const params = {
-  method: 'POST',
+  status: 200,
+  method,
   path,
-  uri,
+  uri: urlJoin(urlSecret, path),
   input: {
-    headers: {
+    headers:{
       'Content-Type': 'application/json'
     },
     body: {
-      permalink: 'type-prova',
-      label: 'test errore'
+      title: 'test update belongsTo',
+      author: null
     }
   },
   output

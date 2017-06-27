@@ -1,6 +1,6 @@
 "use strict";
 
-const auth = require('../utils/auth.js');
+const auth = require('../../utils/auth.js');
 const config = {
   "method" : "DELETE",
   "path" : "/principals/users",
@@ -15,5 +15,5 @@ const promise = new Promise((resolve, reject) => {
   resolve(config, sample);
 });
 
-method.exports = promise;
+module.exports = promise;
 

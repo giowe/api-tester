@@ -1,7 +1,7 @@
 "use strict"
 
 const mysql = require("mysql")
-const { conf, database } = require("./../constants")
+const { conf, database } = require("./constants")
 
 const createDatabase = (connectionOrPool) =>
   new Promise((resolve, reject) => {

@@ -2,7 +2,7 @@
 
 const mysql = require("mysql")
 
-const { conf, unescapedDatabase: database } = require("./../constants")
+const { conf, unescapedDatabase: database } = require("./constants")
 
 const pool = mysql.createPool(Object.assign({}, conf))
 const poolWithDatabase = mysql.createPool(
@@ -19,10 +19,10 @@ const poolWithDatabase = mysql.createPool(
   )
 )
 
-const deleteDatabase = require("./../schema/deleteDatabase")
-const createDatabase = require("./../schema/createDatabase")
-const createTables = require("./../schema/createTables")
-const populateDatabase = require("./../schema/populateDatabase")
+const deleteDatabase = require("./deleteDatabase")
+const createDatabase = require("./createDatabase")
+const createTables = require("./createTables")
+const populateDatabase = require("./populateDatabase")
 
 const clean = (terminatePool = false, verbose = false) =>
   new Promise((resolve, reject) => {

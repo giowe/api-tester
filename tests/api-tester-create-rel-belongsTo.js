@@ -1,6 +1,6 @@
 "use strict";
 
-const clean = reuqire("../schema/clean");
+const clean = require("../schema/clean");
 
 const auth = require('./auth.js');
 

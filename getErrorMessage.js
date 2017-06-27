@@ -92,10 +92,16 @@ const getColumns = (result, sample, type, differences) => {
       if (value === [sample[key]]) {
         // Object.assign(resultColored, { [key]: value });
         // Object.assign(sampleColored, { [key]: sample[key] });
+        if (Array.isArray(value)) {
+          value = setArray(value);
+        }
         columns.push({ field: key, result: value, sample: sample[key]});
       } else {
         // Object.assign(resultColored, {[key]: chalk.red(value) });
         // Object.assign(sampleColored, { [key]: chalk.green(sample[key]) });
+        if (Array.isArray(value)) {
+          value = setArray(value);
+        }
         columns.push({ field: key, sample: JSON.stringify(sample[key]), result: JSON.stringify(value) });
       }
     });
@@ -103,6 +109,15 @@ const getColumns = (result, sample, type, differences) => {
   return columns;
 };
 
+const setArray = (array) => {
+  let out = '[\n';
+
+  array.forEach((item) => {
+    out += item + ',\n';
+  });
+
+  return out;
+}
 
 const getErrorMessage = (result, sample, type) => {
   let errorMessage = '';

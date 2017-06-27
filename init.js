@@ -17,7 +17,6 @@ if(argv.verbose){
 
 for (var i = 0, len = argv._.length; i < len; i++) {
   const strArr = argv._[i].split("");
-  if (1=1)
   console.log(strArr)
 }
 

@@ -1,16 +1,26 @@
-const yargs = require('yargs') // eslint-disable-line 
-  .command('serve', 'start the server', (yargs) => {
-    yargs.option('port', {
-      describe: 'port to bind on',
-      default: 5000
-    })    
-  }, (argv) => {
-    if (argv.verbose) console.info(`start server on :${argv.port}`)
-    serve(argv.port)
-  })
-  .option('verbose', {
-    alias: 'v',
-    default: false
-  })
-  .help()
-  .argv
+const argv = require('yargs').argv;
+const readline = require('readline');
+let tests = {};
+const init = {
+  "verbose" : "false"
+};
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+if(argv.verbose){
+  let verb = {
+    "verbose" : "true"
+  }
+  Object.assign(init,verb);
+}
+
+tests = {
+  "name" : argv._
+}
+Object.assign(init,tests);
+console.log(init)
+rl.close();
+
+module.exports = init;

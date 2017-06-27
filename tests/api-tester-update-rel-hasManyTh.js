@@ -1,13 +1,11 @@
 'use strict';
 
-const clean = require('../schema/clean.js');
-
 const auth = require('./auth.js');
-const method = "DELETE";
-const path = "contents/contents/it/home";
-const output = require('./api-tester-deleteSingleContent-sample.json');
+const method = 'PUT';
+const path = 'contents/contents/it/home';
+const output = require('./api-tester-create-rel-embedsMany-sample.json');
+const urlJoin = require('ulr-join');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
-const urlJoin = require('url-join');
 
 const params = {
   method,
@@ -17,8 +15,20 @@ const params = {
     headers: {
       'content-type': 'application/json',
     },
+    body: {
+      categories: [
+        {
+          lang: 'it',
+          permalink: 'caneItaliano'
+        },
+        {
+          lang: 'it',
+          permalink: 'mangoItaliano'
+        }
+      ]
+    }
   },
-  output,
+  output
 };
 
 module.exports = () => new Promise((resolve, reject) => {

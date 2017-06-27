@@ -1,22 +1,24 @@
 'use strict';
-
+const clean = require('../schema/clean');
 const auth = require('./auth.js');
-const method = 'PUT';
-const path = 'contents/contents/it/home';
-const output = require('./api-tester-create-rel-embedsMany-sample.json');
-const urlJoin = require('ulr-join');
-const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
+const output = require('./api-tester-create-rel-hasManyTh-sample.json');
+const Join = require('utl-join');
+const url = 'https://api-staging-f3.soluzionifutura.it' ;
+const path = '/contents/contents';
+const uri = Join(url, path);
 
 const params = {
-  status: 200,
-  method,
+  method: 'POST',
   path,
-  uri: urlJoin(urlSecret, path),
+  uri,
   input: {
     headers: {
-      'content-type': "application/json",
-    },
+      'Content-Type': 'application/json'
+    }
+    ,
     body: {
+      permalink: 'hasManyTh-test',
+      lang: 'it',
       categories: [
         {
           lang: 'it',
@@ -26,8 +28,17 @@ const params = {
           lang: 'it',
           permalink: 'mangoItaliano'
         }
-      ]
-    },
+      ],
+      type: {
+        permalink: 'pagine',
+        lang: 'it'
+      },
+      author: {
+        login: 'admin'
+      }
+    }
+
+
   },
   output
 };

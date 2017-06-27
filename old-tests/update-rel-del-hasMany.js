@@ -1,3 +1,5 @@
+"use strict"
+
 const baseTest = require('./baseTestNoClean');
 
 const payload = {

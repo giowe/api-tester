@@ -1,24 +1,25 @@
 'use strict';
+
 const clean = require('../schema/clean');
-const auth = require('./auth.js');
-const output = require('./api-tester-create-no-rel-sample.json');
-const method ='POST';
-const path ='contents/types';
-const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
-const urlJoin = require('url-join');
+const auth = require('../utils/auth');
+const output = require('tests/api-tester-create-schema-error-sample.json');
+const Join = require('utl-join');
+const url = 'https://api-staging-f3.soluzionifutura.it' ;
+const path = '/contents/types';
+const uri = Join(url, path);
+
 
 const params = {
-  method,
+  method: 'POST',
   path,
-  uri: urlJoin(urlSecret,path),
+  uri,
   input: {
     headers: {
-      'content-type': 'application/json'
+      'Content-Type': 'application/json'
     },
     body: {
       permalink: 'type-prova',
-      lang: 'it',
-      label: 'tipo appena creato'
+      label: 'test errore'
     }
   },
   output

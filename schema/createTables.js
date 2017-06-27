@@ -1,7 +1,7 @@
 "use strict"
 
 const mysql = require("mysql")
-const { conf, ids, unescapedDatabase: database } = require("./../constants")
+const { conf, ids, unescapedDatabase: database } = require("./constants")
 
 const query = [
   // CONTENTS MAIN TABLES

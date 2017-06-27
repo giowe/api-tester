@@ -1,7 +1,7 @@
 "use strict"
 
 const mysql = require("mysql")
-const { conf, unescapedDatabase: database } = require("./../constants")
+const { conf, unescapedDatabase: database } = require("./constants")
 
 conf.database = database
 const connection = mysql.createConnection(conf)

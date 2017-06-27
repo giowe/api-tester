@@ -1,7 +1,13 @@
-const baseTest = require("./baseTestNoClean")
+"use strict";
 
-const path = "contents/contents/it/home"
-const method = "DELETE"
+const baseTest = require("./baseTestNoClean");
+
+const path = "contents/contents/it/home";
+const method = "DELETE";
+
+clean.then((resolve) => (){
+
+});
 
 const test = (terminatePool = false) =>
   baseTest(
@@ -9,7 +15,7 @@ const test = (terminatePool = false) =>
     method,
     null,
     terminatePool
-  )
+  );
 
 // eslint-disable-next-line
 if (process.argv[1] === __filename) {
@@ -18,4 +24,4 @@ if (process.argv[1] === __filename) {
     .catch(error => { console.error(error) })
 }
 
-module.exports = test
+module.exports = test;

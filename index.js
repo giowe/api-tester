@@ -6,6 +6,7 @@ const chooseTest = require('./utils/choose-test');
 const init = require('./init.js');
 const chalk = require('chalk');
 const getErrorMessage = require('./getErrorMessage');
+const columnify = require('columnify');
 
 const verbose = true;
 
@@ -15,7 +16,6 @@ chooseTest.then(result => {
   test.then((result) => {
     const sample = result.sample;
     const { method, host, path } = result.config;
-
     const opt = {
       method,
       uri : `${host}${path}`

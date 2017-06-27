@@ -23,36 +23,93 @@ const diff = (obj1, obj2) => {
   return result;
 };
 
-const printObj = (result, sample, type, differences) => {
-  const columns = [];
-  const differencesKeys = Object.keys(differences);
-  const resultKeys = Object.keys(result);
-  const sampleKeys = Object.keys(sample);
-  let errorMessage = '';
-  resultKeys.forEach(key => {
-      if (differencesKeys.indexOf(key) !== -1) {
-        const value = result[key];
-        if (typeof value === 'object' && value !== null) {
-          columns.push({[key]: printObj(value, sample[key], type, diff(value, sample[key])) });
-        } else { //use else if
-          columns.push({result: chalk.red(`${key}: ${result[key]}`), sample: `${sampleKeys.indexOf(key) !== -1 ? 
-                                                      chalk.green(`${key}: ${sample[key]}`) :
-                                                      ''}` });
-        }                                            
+// const printObj = (result, sample, type, differences) => {
+//   const columns = [];
+//   const differencesKeys = Object.keys(differences);
+//   const resultKeys = Object.keys(result);
+//   const sampleKeys = Object.keys(sample);
+//   resultKeys.forEach(key => {
+//       if (differencesKeys.indexOf(key) !== -1) {
+//         const value = result[key];
+//         if (typeof value === 'object' && value !== null) {
+//           //todo
+//           const objColumns = printObj(value, sample[key], type, diff(value, sample[key])) );
+
+//         } 
+//         else if (Array.isArray(value)) {
+//           let objResult = `${key}: [`
+//           let objSample = `${key}: [`
+//           value.forEach((item, index) => {
+//             switch (typeof item){
+//               case 'string':
+//               case 'number':
+//               {
+//                 objResult += item === sample[key][index] ? 
+//                           `${item}` : `${chalk.red(item)}`
+//                 break;
+//               }
+//               case 'object':
+//               {
+//                 if (Array.isArray(item)) {
+//                     ///
+//                 } else {
+                  
+//                 }
+//                 break;
+//               }
+//               default:
+//                 throw new Error("Oh noooo");
+//             }
+//           })
+//           objResult += ']'
+//           objSample += ']'
+//           columns.push({result: objResult, sample: objSample });
+//         } 
+//         else { //use else if
+//           columns.push({ result: chalk.red(`${key}: ${result[key]}`), sample: `${sampleKeys.indexOf(key) !== -1 ? 
+//                                                       chalk.green(`${key}: ${sample[key]}`) :
+//                                                       ''}` });
+//         }                                            
+//       } else {
+//         columns.push({result: `${key}: ${result[key]}`, sample: `${sampleKeys.indexOf(key) !== -1 ? 
+//                                                       `${key}: ${sample[key]}` :
+//                                                       ''}` });
+//       }
+//   });
+//   (columns)
+//   return (columns);
+// }
+
+const getColumns = (result, sample, type, differences) => {
+  // const resultColored = {};
+  // const sampleColored = {};
+  const columns = []
+  if (type === 'application/json'){
+    const resultKeys = Object.keys(result);
+    const sampleKeys = Object.keys(sample);
+    resultKeys.forEach((key) => {
+      const value = result[key];
+      if (value === [sample[key]]) {
+        // Object.assign(resultColored, { [key]: value });
+        // Object.assign(sampleColored, { [key]: sample[key] });
+        columns.push({ field: key, result: value, sample: sample[key]});
       } else {
-        columns.push({result: `${key}: ${result[key]}`, sample: `${sampleKeys.indexOf(key) !== -1 ? 
-                                                      `${key}: ${sample[key]}` :
-                                                      ''}` });
+        // Object.assign(resultColored, {[key]: chalk.red(value) });
+        // Object.assign(sampleColored, { [key]: chalk.green(sample[key]) });
+        columns.push({ field: key, sample: JSON.stringify(sample[key]), result: JSON.stringify(value) });
       }
-  });
-  return errorMessage;
-}
+    });
+  } 
+  return columns;
+};
+
 
 const getErrorMessage = (result, sample, type) => {
   let errorMessage = '';
   if (type === 'application/json') {
-    const columns = printObj(result, sample, type, diff(result, sample));
-    console.log(columns);
+    const test =getColumns(result, sample, type, diff(result, sample));
+    Object.assign(test, { columnSplitter: ' | '})
+    console.log(columnify(test));
   }
 };
 

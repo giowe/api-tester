@@ -1,7 +1,6 @@
-const argv = require('yargs').demand(1).argv;
+const argv = require('yargs').argv;
 let tests = {};
 let arr = [];
-let finalarr = [];
 const init = {};
 
 if(argv.verbose){
@@ -16,15 +15,16 @@ if(argv.verbose){
   Object.assign(init,verb);
 }
 
-arr
-for (var i = 0, len = argvs._.length; i < len; i++) {
-  const strArr = argvs._[i].split("");
+for (var i = 0, len = argv._.length; i < len; i++) {
+  const strArr = argv._[i].split("");
+  if (1=1)
   console.log(strArr)
 }
 
 tests = {
-  "name" : finalarr
+  "name" : arr
 }
 Object.assign(init,tests);
+console.log(init);
 
 module.exports = init;

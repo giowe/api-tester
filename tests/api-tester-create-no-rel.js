@@ -2,10 +2,15 @@
 const clean = require('../schema/clean');
 const auth = require('./auth.js');
 const output = require('./api-tester-create-no-rel-sample.json');
+const method ='POST';
+const path ='contents/types';
+const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
+const urlJoin = require('url-join');
 
 const params = {
-  method: 'POST',
-  path: 'contents/types',
+  method,
+  path,
+  uri: urlJoin(urlSecret,path),
   input: {
     headers: {
       'content-type': 'application/json'

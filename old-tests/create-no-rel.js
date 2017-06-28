@@ -5,7 +5,7 @@ const payload = {
   lang: 'it',
   label: 'tipo appena creato'
 };
-const path = 'contents/types';
+const path = 'contents/types'; 
 const method = 'POST';
 
 const test = (terminatePool = false) =>

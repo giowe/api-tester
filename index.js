@@ -10,6 +10,11 @@ const Q = require('q');
 // init().then((params) => { console.log(params); });
 const promiseWaterfall = require('promise.waterfall');
 
+const getErrorMessage = (result, sample, type) => {
+  console.log('result: ', result);
+  console.log('sample: ', sample);
+}
+
 init().then((params) => {
   console.log(params)
   const { verbose, tests } = params;
@@ -40,11 +45,8 @@ init().then((params) => {
               return next();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
-              console.log('result: ', body);
-              console.log('sample: ', output);
+              getErrorMessage(body, output, type);
               reject(err);
-              // getErrorMessage(body, sample, type);
-              // console.log(errorMessage);
             }
           }
         }

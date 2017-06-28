@@ -16,7 +16,7 @@ const params = {
 };
 
 argv._.forEach((testPath) =>{
-    params.tests.testPath = require(path.join(localDir,testPath));
+    params.tests[testPath] = require(path.join(localDir,testPath));
 });
 
 const choices = fs.readdirSync(localDir).filter(file => {
@@ -38,8 +38,7 @@ if (choices.length === 0) {
 
 module.exports = () => new Promise((resolve, reject) => {
   if(params.tests === {}){
-    console.log('ciao')
-    resolve(() => inquirer.prompt(question).then(params))
+    resolve(() => inquirer.prompt(question).then((params) => Object.assign(this.params, params)))
   }else if(params.tests !== {}){
     resolve(params);
   }else{

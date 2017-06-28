@@ -31,7 +31,7 @@ const params = {
 
 module.exports = () => new Promise((resolve, reject) => {
   console.log("prima clean di create-rel-belongsTo");
-    clean(true)
+    clean()
     .then((data) => {
       console.log(data);
       return auth();

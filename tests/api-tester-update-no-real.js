@@ -26,7 +26,7 @@ const params = {
 };
 
 module.exports = () => new Promise((resolve, reject) => {
-  clean(true)
+  clean()
     .then((data) => {
       console.log(data);
       return auth();

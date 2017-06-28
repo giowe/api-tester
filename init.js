@@ -37,9 +37,9 @@ if (choices.length === 0) {
 }
 
 module.exports = () => new Promise((resolve, reject) => {
-  if(params.tests === {}){
-    resolve(() => inquirer.prompt(question).then((params) => Object.assign(this.params, params)))
-  }else if(params.tests !== {}){
+  if(!params.tests){
+    resolve(() => inquirer.prompt(question).then((answer) => params.tests[answer] = require(path.join(localDir,answer))));
+  }else if(params.tests){
     resolve(params);
   }else{
     reject(console.log('errore:', err));

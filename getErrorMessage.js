@@ -1,6 +1,7 @@
 'use strict';
 
 const chalk = require('chalk');
+const pretty = require('js-object-pretty-print').pretty;
 
 const isEmptyObject = function(obj) {
   for (let name in obj) return false;
@@ -28,9 +29,9 @@ const getErrorMessage = (result, sample, type) => {
   let errorMessage = '';
   if (type === 'application/json') {
     const errorData =diff(sample, result);
-    console.log(chalk.red(JSON.stringify(errorData)));
-    console.log(JSON.stringify(sample));
-    console.log(JSON.stringify(result));
+    console.log(chalk.red(pretty(JSON.stringify(errorData))));
+    console.log(pretty(JSON.stringify(sample)));
+    console.log(pretty(JSON.stringify(result)));
   }
 };
 

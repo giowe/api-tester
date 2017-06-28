@@ -6,7 +6,7 @@ const auth = require('./auth.js');
 const method = 'PUT';
 const path = 'contents/contents/it/home';
 const output = require('./api-tester-create-rel-embedsMany-sample.json');
-const urlJoin = require('ulr-join');
+const urlJoin = require('url-join');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const uri = urlJoin(urlSecret, path);
 

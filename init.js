@@ -13,10 +13,13 @@ if (argv.v || argv.version) {
 
 const params = {
   verbose: argv.verbose,
-  tests: argv._.map((testPath) => require(path.join(localDir,testPath)))
+  test: {}
 };
 
-console.log(params)
+argv._.forEach((testPath) =>{
+    params.test.testPath = require(path.join(localDir,testPath));
+});
+ 
 
 const choices = fs.readdirSync(localDir).filter(file => {
   return file.slice(0, 11) === 'api-tester-' && file.slice(-3) === '.js';
@@ -35,11 +38,11 @@ if (choices.length === 0) {
   process.exit()
 }
 const choicesFn = () => inquirer.prompt(question); 
-
 module.exports = () => new Promise((resolve, reject) => {
-  if(params.tests === []){
-    resolve(choicesFn().then());
-  }else if(params.tests !== []){
+  if(params.tests === {}){
+    console.log('ciao')
+    resolve(choicesFn().then(params))
+  }else if(params.tests !== {}){
     resolve(params);
   }else{
     reject(console.log('errore:', err));

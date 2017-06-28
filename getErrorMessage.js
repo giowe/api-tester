@@ -29,7 +29,9 @@ const getErrorMessage = (result, sample, type) => {
   let errorMessage = '';
   if (type === 'application/json') {
     const errorData =diff(sample, result);
-    console.log(chalk.red(errorData));
+    console.log(chalk.red(JSON.stringify(errorData)));
+    console.log(JSON.stringify(result));
+    console.log(JSON.stringify(sample));
   }
 };
 

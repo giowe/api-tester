@@ -30,7 +30,7 @@ init().then((params) => {
         opt, (err, res, body) => {
           if (err) {
             if (verbose) console.log(chalk.red(err));
-            else process.stdout.write('\u2715');
+            else process.stdout.write(chalk.red('\u2718'));
             testsFailed.push(testsNames[index]);
             resolve();
           }
@@ -40,13 +40,13 @@ init().then((params) => {
               expect(body).to.deep.equal(outputBody);
               testsPassed.push(testsNames[index]);
               if (verbose) { console.log(outputBody);}
-              else process.stdout.write('\u2714');
+              else process.stdout.write(chalk.green('\u2714'));
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
               testsFailed.push(testsNames[index]);
               if (verbose) { getErrorMessage(body, output.body, type); }
-              else process.stdout.write('\u2715');
+              else process.stdout.write(chalk.red('\u2718'));
               resolve();
             }
           }
@@ -65,7 +65,7 @@ init().then((params) => {
       });
 
       testsFailed.forEach((test) => {
-        console.log(chalk.red(`\u2715 Test "${test}" failed...`));
+        console.log(chalk.red(`\u2718 Test "${test}" failed...`));
       });
 
     })

@@ -15,10 +15,10 @@ const params = {
   uri,
   input: {
     headers: {
-      'content-type': 'application/json',
-    },
+      'content-type': 'application/json'
+    }
   },
-  output,
+  output
 };
 
 module.exports = () => new Promise((resolve, reject) => {

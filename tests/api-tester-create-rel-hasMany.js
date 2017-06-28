@@ -15,7 +15,7 @@ const params = {
   uri,
   input: {
     headers:{
-      'content-type': 'application/json',
+      'content-type': 'application/json'
     },
     body: {
       permalink: 'hasMany-test',

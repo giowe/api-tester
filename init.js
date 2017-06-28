@@ -37,6 +37,7 @@ if (choices.length === 0) {
 }
 
 module.exports = () => new Promise((resolve, reject) => {
+<<<<<<< HEAD
   if(Object.keys(params.tests).length === 0){
     inquirer.prompt(question)
       .then((result) => {
@@ -49,5 +50,10 @@ module.exports = () => new Promise((resolve, reject) => {
         resolve(params);
     });
   } else {
+=======
+  if(!params.tests){
+    resolve(() => inquirer.prompt(question).then((answer) => params.tests[answer] = require(path.join(localDir,answer))));
+  }else if(params.tests){
+>>>>>>> 1b5ad47419da6cc59b1bd284c3a7902d3a9b16b1
     resolve(params);
 }});

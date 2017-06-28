@@ -1,5 +1,7 @@
 'use strict';
+
 const clean = require('../schema/clean');
+
 const auth = require('./auth.js');
 const output = require('./api-tester-create-no-rel-sample.json');
 const method ='POST';

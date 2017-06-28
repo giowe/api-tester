@@ -1,14 +1,16 @@
 'use strict';
 const clean = require('../schema/clean');
+
 const auth = require('./auth.js');
+const method = 'POST';
+const path = '/contents/contents';
 const output = require('./api-tester-create-rel-hasManyTh-sample.json');
 const Join = require('utl-join');
-const url = 'https://api-staging-f3.soluzionifutura.it' ;
-const path = '/contents/contents';
+const url = 'https://api-staging-f3.soluzionifutura.it';
 const uri = Join(url, path);
 
 const params = {
-  method: 'POST',
+  method,
   path,
   uri,
   input: {

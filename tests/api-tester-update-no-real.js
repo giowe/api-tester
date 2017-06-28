@@ -1,12 +1,13 @@
 'use strict';
 
-const path = 'contents/contents/it/home';
+const clean = require('../schema/clean');
+
 const method = 'PUT';
+const path = 'contents/contents/it/home';
 const auth = require('./auth.js');
 const output = require('./api-tester-update-no-real-sample.json');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
-const clean = require('../schema/clean');
 
 
 const params = {

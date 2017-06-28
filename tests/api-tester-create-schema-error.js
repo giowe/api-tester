@@ -1,16 +1,18 @@
 'use strict';
 
 const clean = require('../schema/clean');
-const auth = require('./auth');
+
+const auth = require('./auth.js');
+const method = 'POST';
+const path = '/contents/types';
 const output = require('tests/api-tester-create-schema-error-sample.json');
 const Join = require('utl-join');
-const url = 'https://api-staging-f3.soluzionifutura.it' ;
-const path = '/contents/types';
+const url = 'https://api-staging-f3.soluzionifutura.it';
 const uri = Join(url, path);
 
 
 const params = {
-  method: 'POST',
+  method,
   path,
   uri,
   input: {

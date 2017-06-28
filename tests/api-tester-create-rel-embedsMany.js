@@ -1,9 +1,9 @@
 'use strict';
 
-const method = 'POST';
 const clean = reuqire("../schema/clean");
 
 const auth = require('./auth.js');
+const method = 'POST';
 const path = 'contents/contents';
 const output = require('./api-tester-create-rel-embedsMany-sample.json');
 const urlJoin = require('ulr-join');

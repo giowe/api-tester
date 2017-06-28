@@ -3,8 +3,8 @@
 const clean = require("../schema/clean");
 
 const auth = require('./auth.js');
-const path = 'contents/contents';
 const method = 'POST';
+const path = 'contents/contents';
 const output = require('./api-tester-create-rel-belongsTo-sample.json');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');

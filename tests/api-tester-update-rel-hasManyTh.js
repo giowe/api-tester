@@ -1,5 +1,7 @@
 'use strict';
 
+const clean = require('../schema/clean.js');
+
 const auth = require('./auth.js');
 const method = 'PUT';
 const path = 'contents/contents/it/home';

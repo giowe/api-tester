@@ -12,6 +12,7 @@ const testsFailed = [];
 
 init().then((params) => {
   const { verbose, tests } = params;
+  console.log(tests);
   const testsNames = Object.keys(tests);
   const wrappedTests = Object.values(tests).map((test, index) => () => new Promise((resolve, reject) => {
     test()
@@ -28,18 +29,19 @@ init().then((params) => {
         opt, (err, res, body) => {
           if (err) {
             if (verbose) console.log(chalk.red(err));
-            console.log(chalk.red(`\u2715 Test "${testsNames[index]}" failed...`));
+            testsFailed.push(testsNames[index]);
             resolve();
           }
           else {
             try {
               const outputBody = output.body;
               expect(body).to.deep.equal(outputBody);
+              testsPassed.push(testsNames[index]);
               if (verbose) console.log(outputBody);
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
-              console.log(chalk.red(`\u2715 Test "${testsNames[index]}" failed...`));
+              testsFailed.push(testsNames[index]);
               if (verbose) getErrorMessage(body, output.body, type);
               resolve();
             }
@@ -52,14 +54,16 @@ init().then((params) => {
   const waterfall = () => promiseWaterfall(wrappedTests);
 
   waterfall()
-    .then(() => console.log(chalk.cyan('\nTests finished!')))
+    .then(() => {
+    console.log(chalk.cyan('\nTests finished!'))
+      testsPassed.forEach((test) => {
+        console.log(chalk.green(`\u2714 Test "${test}" passed.`));
+      });
+
+      testsFailed.forEach((test) => {
+        console.log(chalk.red(`\u2715 Test "${test}" failed...`));
+      });
+
+    })
     .catch((err) => console.log(err));
 }).catch((err) => console.log(err));
-
-testsPassed.forEach((test) => {
-  console.log(chalk.green(`\u2714 Test "${test}" passed.`));
-});
-
-testsFailed.forEach((test) => {
-  console.log(chalk.red(`\u2715 Test "${test}" failed...`));
-});

@@ -5,21 +5,13 @@ const { expect } = require('chai');
 const init = require('./init.js');
 const chalk = require('chalk');
 const getErrorMessage = require('./getErrorMessage');
-// init().then((params) => { console.log(params); });
 const promiseWaterfall = require('promise.waterfall');
 
-// const getErrorMessage = (result, sample, type) => {
-//   console.log('result: ', result);
-//   console.log('sample: ', sample);
-// }
-
-const testSuccess = (sample)  => {
-  console.log('');
-}
 
 init().then((params) => {
+  console.log(params)
   const { verbose, tests } = params;
-  const wrappedTests = tests.map((test) => () => new Promise((resolve, reject) => {
+  const wrappedTests = Object.values(tests).map((test) => () => new Promise((resolve, reject) => {
     test()
       .then((params) => {
       const { method, uri, output, input } = params;
@@ -30,7 +22,6 @@ init().then((params) => {
         headers,
         json: body
       };
-      console.log(opt);
       request(
         opt, (err, res, body) => {
           if (err) {

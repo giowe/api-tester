@@ -43,6 +43,7 @@ init().then((params) => {
           else {
             try {
               const outputBody = output.body;
+              if (typeof body !== 'object') body = JSON.parse(body);
               expect(body).to.deep.equal(outputBody);
               testsPassed.push(testsNames[index]);
               if (verbose) {

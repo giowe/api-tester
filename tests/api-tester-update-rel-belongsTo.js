@@ -24,8 +24,8 @@ const params = {
         permalink: 'blog'
       }
     },
-    output
-  }
+  },
+  output
 };
 
 module.exports = () => new Promise((resolve, reject) => {

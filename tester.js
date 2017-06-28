@@ -52,17 +52,51 @@ init().then((params) => {
                 body,
                 headersKeys: Object.keys(res.headers),
                 bodyKeys: Object.keys(body)
-              };
+	      };
+	      console.log('result', result);
+	      console.log('output', output);
               const errorStatus = getTestStatus(result, output);
-                //// expect(body).to.deep.equal(outputBody);
-              testsPassed.push(testsNames[index]);
+              const testName = testsNames[index];
+              switch (errorStatus) {
+                case 0: {
+                  testsPassed.push(test);
+                  break;
+                }
+                case 1: {
+                  testsWarned.push(test);
+                  break;
+                }
+                case 2: {
+                  testsFailed.push(test);
+                  break;
+                }
+                default: {
+                  console.log("There is a problem in errorStatus function, ", errorStatus);
+                }
+              }
               if (verbose) {
                 console.log(pretty(outputBody));
                 console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
               }
               else {
                 process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `));
-                process.stdout.write(chalk.green('\u2714\n'));
+                switch (errorStatus) {
+                  case 0: {
+                    process.stdout.write(chalk.green('\u2714\n'));
+                    break;
+                  }
+                  case 1: {
+                    process.stdout.write(chalk.yellow('\u2717\n'));
+                    break;
+                  }
+                  case 2: {
+                    process.stdout.write(chalk.red('\u2718\n'));
+                    break;
+                  }
+                  default: {
+                    console.log("There is a problem in errorStatus function, ", errorStatus);
+                  }
+                }
               }
               console.log(' ------------------------------------------------------------------ ');
               resolve();

@@ -6,6 +6,7 @@ const init = require('./init.js');
 const chalk = require('chalk');
 const getErrorMessage = require('./getErrorMessage');
 const promiseWaterfall = require('promise.waterfall');
+const pretty = require('js-object-pretty-print').pretty;
 
 const testsPassed = [];
 const testsFailed = [];
@@ -16,8 +17,6 @@ init().then((params) => {
   const wrappedTests = Object.values(tests).map((test, index) => () => new Promise((resolve, reject) => {
     test()
       .then((params) => {
-      if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
-      else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
       const { method, uri, output, input } = params;
       const { headers, body } = input;
       const opt = {
@@ -31,9 +30,15 @@ init().then((params) => {
           if (err) {
             if (verbose) {
               console.log(chalk.red(err));
-              console.log(' ------------------------------------------------------------------ ');
+              if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
+              else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
             }
-            else process.stdout.write(chalk.red('\u2718\n'));
+            else {
+              if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
+              else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
+              process.stdout.write(chalk.red('\u2718\n'));
+            }
+            console.log(' ------------------------------------------------------------------ ');
             testsFailed.push(testsNames[index]);
             resolve();
           }
@@ -43,19 +48,29 @@ init().then((params) => {
               expect(body).to.deep.equal(outputBody);
               testsPassed.push(testsNames[index]);
               if (verbose) {
-                console.log(outputBody);
-                console.log(' ------------------------------------------------------------------ ');
+                console.log(pretty(outputBody));
+                if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
+                else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
               }
-              else process.stdout.write(chalk.green('\u2714\n'));
+              else {
+                if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
+                else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
+                process.stdout.write(chalk.green('\u2714\n'));
+              }
+              console.log(' ------------------------------------------------------------------ ');
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
               testsFailed.push(testsNames[index]);
               if (verbose) {
                 getErrorMessage(body, output.body, type);
-                console.log(' ------------------------------------------------------------------ ');
+                console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
               }
-              else process.stdout.write(chalk.red('\u2718\n'));
+              else {
+                process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `));
+                process.stdout.write(chalk.red('\u2718\n'));
+              }
+              console.log(' ------------------------------------------------------------------ ');
               resolve();
             }
           }

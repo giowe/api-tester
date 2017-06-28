@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const clean = require("../schema/clean");
+const clean = require('../schema/clean');
 
 const auth = require('./auth.js');
 const method = 'POST';

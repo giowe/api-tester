@@ -30,12 +30,10 @@ init().then((params) => {
           if (err) {
             if (verbose) {
               console.log(chalk.red(err));
-              if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
-              else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
+              console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
             }
             else {
-              if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
-              else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
+              process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `));
               process.stdout.write(chalk.red('\u2718\n'));
             }
             console.log(' ------------------------------------------------------------------ ');
@@ -49,12 +47,10 @@ init().then((params) => {
               testsPassed.push(testsNames[index]);
               if (verbose) {
                 console.log(pretty(outputBody));
-                if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
-                else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
+                console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
               }
               else {
-                if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
-                else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
+                process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `));
                 process.stdout.write(chalk.green('\u2714\n'));
               }
               console.log(' ------------------------------------------------------------------ ');

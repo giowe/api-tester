@@ -29,8 +29,11 @@ init().then((params) => {
       request(
         opt, (err, res, body) => {
           if (err) {
-            if (verbose) console.log(chalk.red(err));
-            else process.stdout.write(chalk.red('\u2718'));
+            if (verbose) {
+              console.log(chalk.red(err));
+              console.log(' ------------------------------------------------------------------ ');
+            }
+            else process.stdout.write(chalk.red('\u2718\n'));
             testsFailed.push(testsNames[index]);
             resolve();
           }
@@ -39,14 +42,20 @@ init().then((params) => {
               const outputBody = output.body;
               expect(body).to.deep.equal(outputBody);
               testsPassed.push(testsNames[index]);
-              if (verbose) { console.log(outputBody);}
-              else process.stdout.write(chalk.green('\u2714'));
+              if (verbose) {
+                console.log(outputBody);
+                console.log(' ------------------------------------------------------------------ ');
+              }
+              else process.stdout.write(chalk.green('\u2714\n'));
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
               testsFailed.push(testsNames[index]);
-              if (verbose) { getErrorMessage(body, output.body, type); }
-              else process.stdout.write(chalk.red('\u2718'));
+              if (verbose) {
+                getErrorMessage(body, output.body, type);
+                console.log(' ------------------------------------------------------------------ ');
+              }
+              else process.stdout.write(chalk.red('\u2718\n'));
               resolve();
             }
           }
@@ -59,7 +68,7 @@ init().then((params) => {
 
   waterfall()
     .then(() => {
-    console.log(chalk.cyan('\nTests finished!'))
+    console.log(chalk.cyan('\nTests finished!\n'))
       testsPassed.forEach((test) => {
         console.log(chalk.green(`\u2714 Test "${test}" passed.`));
       });

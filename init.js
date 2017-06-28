@@ -37,11 +37,17 @@ if (choices.length === 0) {
 }
 
 module.exports = () => new Promise((resolve, reject) => {
-  if(params.tests === {}){
-    resolve(() => inquirer.prompt(question).then((params) => Object.assign(this.params, params)))
-  }else if(params.tests !== {}){
+  if(Object.keys(params.tests).length === 0){
+    inquirer.prompt(question)
+      .then((result) => {
+        Object.assign(
+          params.tests,
+          {
+            [result.Test]: require(path.join(localDir, result.Test))
+          }
+        );
+        resolve(params);
+    });
+  } else {
     resolve(params);
-  }else{
-    reject(console.log('errore:', err));
-  }
-});
+}});

@@ -8,8 +8,6 @@ const auth = require('./auth.js');
 const output = require('./api-tester-update-rel-del-hasMany-sample.json');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
-const clean = require('../schema/clean');
-
 
 const params = {
   status: 200,

@@ -9,7 +9,6 @@ const output = require('./api-tester-update-rel-del-belongs-sample.json');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
 
-
 const params = {
   method,
   path,

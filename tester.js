@@ -14,24 +14,23 @@ const promiseWaterfall = require('promise.waterfall');
 // }
 
 const testSuccess = (sample)  => {
-  console.log('')
+  console.log('');
 }
 
 init().then((params) => {
-  console.log(params);
   const { verbose, tests } = params;
   const wrappedTests = tests.map((test) => () => new Promise((resolve, reject) => {
     test()
       .then((params) => {
-      const {method, uri, output, input} = params;
-      const {headers, body} = input;
+      const { method, uri, output, input } = params;
+      const { headers, body } = input;
       const opt = {
         method,
         uri,
         headers,
         json: body
       };
-      console.log(opt)
+      console.log(opt);
       request(
         opt, (err, res, body) => {
           if (err) {

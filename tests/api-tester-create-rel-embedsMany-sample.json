@@ -1,8 +1,8 @@
 {
   "status": 200,
-  "count": 6,
   "body":{
-  "data": [
+    "count": 6,
+    "data": [
     {
       "fieldCount": 0,
       "affectedRows": 1,

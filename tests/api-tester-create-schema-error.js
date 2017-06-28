@@ -1,7 +1,7 @@
 'use strict';
 
 const clean = require('../schema/clean');
-const auth = require('../utils/auth');
+const auth = require('./auth');
 const output = require('tests/api-tester-create-schema-error-sample.json');
 const Join = require('utl-join');
 const url = 'https://api-staging-f3.soluzionifutura.it' ;

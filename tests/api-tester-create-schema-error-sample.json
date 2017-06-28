@@ -1,0 +1,12 @@
+{
+  "status": 200,
+  "body": {
+    "error": {
+      "status": 400,
+      "statusCode": 400,
+      "name": "ER_SCHEMA_VALIDATION in TYPES_PARAMS_CREATE schema",
+      "message": "ER_SCHEMA_VALIDATION in TYPES_PARAMS_CREATE schema:\nMissing required field 'lang': must be string",
+      "stack": "Error: ER_SCHEMA_VALIDATION in TYPES_PARAMS_CREATE schema:\nMissing required field 'lang': must be string\n    at _end (/home/f3-test-api/public_html/node_modules/f3-schema/Schema.js:30:32)\n    at Function.validate (/home/f3-test-api/public_html/node_modules/f3-schema/Schema.js:172:12)\n    at Schema.validate (/home/f3-test-api/public_html/node_modules/f3-schema/Schema.js:174:48)\n    at Object.module.exports [as schemaValidation] (/home/f3-test-api/public_html/node_modules/f3-core-component/lib/middlewares/schemaValidation.js:27:22)\n    at Array.MiddlewareStack._stack.push.args (/home/f3-test-api/public_html/node_modules/f3-core-component/lib/MiddlewareStack.js:112:37)\n    at args (/home/f3-test-api/public_html/node_modules/f3-core-component/lib/MiddlewareStack.js:85:85)\n    at Object.module.exports [as auth] (/home/f3-test-api/public_html/node_modules/f3-core-component/lib/middlewares/auth.js:28:3)\n    at Array.MiddlewareStack._stack.push.args (/home/f3-test-api/public_html/node_modules/f3-core-component/lib/MiddlewareStack.js:112:37)\n    at args (/home/f3-test-api/public_html/node_modules/f3-core-component/lib/MiddlewareStack.js:85:85)\n    at Object.module.exports [as default-options] (/home/f3-test-api/public_html/node_modules/f3-core-component/lib/middlewares/default-options.js:14:3)"
+    }
+  }
+}

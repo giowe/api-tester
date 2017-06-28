@@ -1,6 +1,6 @@
 const getErrorStatus = (result, sample) => {
 
-}
+};
 
 // deve returnare:
 // 0 => tutte le chiavi sono giuste

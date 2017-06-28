@@ -7,8 +7,10 @@ const chalk = require('chalk');
 const getErrorMessage = require('./getErrorMessage');
 const promiseWaterfall = require('promise.waterfall');
 const pretty = require('js-object-pretty-print').pretty;
+const getTestStatus = require('./getTestStatus');
 
 const testsPassed = [];
+const testsWarned = [];
 const testsFailed = [];
 
 init().then((params) => {
@@ -44,7 +46,17 @@ init().then((params) => {
             try {
               const outputBody = output.body;
               if (typeof body !== 'object') body = JSON.parse(body);
-              expect(body).to.deep.equal(outputBody);
+              const result = {
+                status: res.statusCode,
+                headers: res.headers,
+                body,
+                headersKeys: Object.keys(headers),
+                bodyKeys: Object.keys(body)
+              };
+              console.log(result);
+              console.log(result, output);
+              const errorStatus = getTestStatus();
+                //// expect(body).to.deep.equal(outputBody);
               testsPassed.push(testsNames[index]);
               if (verbose) {
                 console.log(pretty(outputBody));

@@ -8,11 +8,11 @@ const method ='POST';
 const path ='contents/types';
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
+const uri = urlJoin(urlSecret,path);
 
 const params = {
   method,
-  path,
-  uri: urlJoin(urlSecret,path),
+  uri,
   input: {
     headers: {
       'content-type': 'application/json'

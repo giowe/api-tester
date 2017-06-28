@@ -8,12 +8,12 @@ const auth = require('./auth.js');
 const output = require('./api-tester-update-no-real-sample.json');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
+const uri = urlJoin(urlSecret, path);
 
 
 const params = {
   method,
-  path,
-  uri: urlJoin(urlSecret, path),
+  uri,
   input: {
     headers:{
       'Content-Type': 'application/json'

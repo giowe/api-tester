@@ -5,13 +5,12 @@ const auth = require('./auth.js');
 const method = 'POST';
 const path = '/contents/contents';
 const output = require('./api-tester-create-rel-hasManyTh-sample.json');
-const Join = require('utl-join');
-const url = 'https://api-staging-f3.soluzionifutura.it';
-const uri = Join(url, path);
+const urlJoin = require('url-join');
+const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
+const uri = urlJoin(urlSecret, path);
 
 const params = {
   method,
-  path,
   uri,
   input: {
     headers: {

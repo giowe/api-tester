@@ -6,9 +6,9 @@ const auth = require('./auth.js');
 const method = 'POST';
 const path = '/contents/types';
 const output = require('tests/api-tester-create-schema-error-sample.json');
-const Join = require('utl-join');
-const url = 'https://api-staging-f3.soluzionifutura.it';
-const uri = Join(url, path);
+const urlJoin = require('url-join');
+const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
+const uri = urlJoin(urlSecret, path);
 
 
 const params = {

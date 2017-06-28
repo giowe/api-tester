@@ -31,7 +31,7 @@ const getErrorStatus = (result, sample) => {
     status++;
   }
   if (status >= 1 || status <= 4) statusExit = 1;
-  else if 
+  else if
 };
 
 // deve returnare:

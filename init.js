@@ -35,11 +35,11 @@ if (choices.length === 0) {
   console.log('There aren\'t any tests in this folder');
   process.exit()
 }
-const choicesFn = () => inquirer.prompt(question); 
+
 module.exports = () => new Promise((resolve, reject) => {
   if(params.tests === {}){
     console.log('ciao')
-    resolve(choicesFn().then(params))
+    resolve(() => inquirer.prompt(question).then(params))
   }else if(params.tests !== {}){
     resolve(params);
   }else{

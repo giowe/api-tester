@@ -1,16 +1,18 @@
 'use strict';
 
+const clean = require('../schema/clean.js');
+
 const auth = require('./auth.js');
 const method = 'PUT';
 const path = 'contents/contents/it/home';
 const output = require('./api-tester-create-rel-embedsMany-sample.json');
 const urlJoin = require('ulr-join');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
+const uri = urlJoin(urlSecret, path);
 
 const params = {
   method,
-  path,
-  uri: urlJoin(urlSecret, path),
+  uri,
   input: {
     headers: {
       'content-type': 'application/json',

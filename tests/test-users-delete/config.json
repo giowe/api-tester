@@ -1,7 +1,0 @@
-{
-	"method" : "DELETE",
-	"path" : "/principals/users"
-  "headers": {
-    "Content-Type": "application/json"
-  }
-}

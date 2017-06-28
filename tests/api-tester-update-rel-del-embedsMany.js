@@ -1,19 +1,18 @@
 'use strict';
 
-const path = 'contents/contents/it/home';
+const clean = require('../schema/clean.js');
+
 const method = 'PUT';
-const auth = require('../utils/auth.js');
+const path = 'contents/contents/it/home';
+const auth = require('./auth.js');
 const output = require('./api-tester-update-rel-del-embedsMany-sample.json');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
-const clean = require('../schema/clean');
-
+const uri = urlJoin(urlSecret, path);
 
 const params = {
-  status: 200,
   method,
-  path,
-  uri: urlJoin(urlSecret, path),
+  uri,
   input: {
     headers:{
       'Content-Type': 'application/json'

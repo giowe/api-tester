@@ -1,0 +1,28 @@
+{
+  "status": 200,
+  "body": {
+    "count": 2,
+    "data": [
+      {
+        "fieldCount": 0,
+        "affectedRows": 1,
+        "insertId": 0,
+        "serverStatus": 3,
+        "warningCount": 0,
+        "message": "(Rows matched: 1  Changed: 1  Warnings: 0",
+        "protocol41": true,
+        "changedRows": 1
+      },
+      {
+        "fieldCount": 0,
+        "affectedRows": 2,
+        "insertId": 0,
+        "serverStatus": 35,
+        "warningCount": 0,
+        "message": "(Rows matched: 2  Changed: 2  Warnings: 0",
+        "protocol41": true,
+        "changedRows": 2
+      }
+    ]
+  }
+}

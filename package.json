@@ -2,10 +2,12 @@
   "name": "api-tester",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "bin": {
+    "t": "./bin/tester"
+  },
+  "main": "./tester.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node tester.js"
   },
   "repository": {
     "type": "git",
@@ -16,7 +18,6 @@
   "bugs": {
     "url": "https://github.com/giowe/api-tester/issues"
   },
-  "homepage": "https://github.com/giowe/api-tester#readme",
   "dependencies": {
     "chai": "^4.0.2",
     "chalk": "^1.1.3",

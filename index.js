@@ -44,7 +44,7 @@ init().then((params) => {
             try {
               const outputBody = output.body;
               expect(body).to.deep.equal(outputBody);
-              console.log(chalk.green('test passato'));
+              console.log(chalk.green('\u2714 test passato'));
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];

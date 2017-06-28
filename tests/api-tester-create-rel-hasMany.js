@@ -1,6 +1,6 @@
 'use strict';
 
-const clean = require("../schema/clean");
+const clean = require('../schema/clean');
 
 const auth = require('./auth.js');
 const method = 'POST';
@@ -15,7 +15,7 @@ const params = {
   uri,
   input: {
     headers:{
-      'content-type': "application/json",
+      'content-type': 'application/json',
     },
     body: {
       permalink: 'hasMany-test',

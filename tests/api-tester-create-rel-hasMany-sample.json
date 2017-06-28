@@ -2,22 +2,26 @@
   "status": 200,
   "body":{
     "count": 2,
-    "skip": 0,
-    "limit": 100,
-    "nextSkip": null,
-    "total": 2,
     "data": [
       {
-        "id": 1,
-        "lang": "it",
-        "permalink": "pagine",
-        "label": "Pagine"
+        "fieldCount": 0,
+        "affectedRows": 1,
+        "insertId": 6,
+        "serverStatus": 3,
+        "warningCount": 1,
+        "message": "",
+        "protocol41": true,
+        "changedRows": 0
       },
       {
-        "id": 2,
-        "lang": "it",
-        "permalink": "news",
-        "label": "News"
+        "fieldCount": 0,
+        "affectedRows": 2,
+        "insertId": 0,
+        "serverStatus": 3,
+        "warningCount": 0,
+        "message": "(Rows matched: 2  Changed: 2  Warnings: 0",
+        "protocol41": true,
+        "changedRows": 2
       }
     ]
   }

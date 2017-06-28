@@ -38,7 +38,7 @@ const choicesFn = () => inquirer.prompt(question);
 
 module.exports = () => new Promise((resolve, reject) => {
   if(tests === []){
-    resolve(choicesFn());
+    resolve(choicesFn().then());
   }else if(tests !== []){
     resolve(params);
   }else{

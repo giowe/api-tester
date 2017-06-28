@@ -5,8 +5,6 @@ const { expect } = require('chai');
 const init = require('./init.js');
 const chalk = require('chalk');
 const getErrorMessage = require('./getErrorMessage');
-const columnify = require('columnify');
-const Q = require('q');
 // init().then((params) => { console.log(params); });
 const promiseWaterfall = require('promise.waterfall');
 
@@ -20,7 +18,7 @@ const testSuccess = (sample)  => {
 }
 
 init().then((params) => {
-  console.log(params)
+  console.log(params);
   const { verbose, tests } = params;
   const wrappedTests = tests.map((test) => () => new Promise((resolve, reject) => {
     test()
@@ -33,10 +31,11 @@ init().then((params) => {
         headers,
         json: body
       };
+      console.log(opt)
       request(
         opt, (err, res, body) => {
           if (err) {
-            console.log(chalk.red(err));
+            if (verbose) console.log(chalk.red(err));
             console.log(chalk.red('\u2715 test non passato'));
             resolve();
           }
@@ -45,11 +44,12 @@ init().then((params) => {
               const outputBody = output.body;
               expect(body).to.deep.equal(outputBody);
               console.log(chalk.green('\u2714 test passato'));
+              if (verbose) console.log(outputBody);
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
-              console.log(chalk.red('\u2715 test fallito'))
-              getErrorMessage(body, output.body, type);
+              console.log(chalk.red('\u2715 test fallito'));
+              if (verbose) getErrorMessage(body, output.body, type);
               resolve();
             }
           }
@@ -61,6 +61,6 @@ init().then((params) => {
   const waterfall = () => promiseWaterfall(wrappedTests);
 
   waterfall()
-    .then(() => console.log('fatto'))
+    .then(() => console.log(chalk.green('\nTests finished!')))
     .catch((err) => console.log(err));
 }).catch((err) => console.log(err));

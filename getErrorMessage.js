@@ -29,8 +29,7 @@ const getErrorMessage = (result, sample, type) => {
   if (type === 'application/json') {
     const errorData =diff(sample, result);
     console.log(chalk.red(pretty(errorData)));
-    console.log('Expected: \n' + pretty(sample));
-    console.log(', but received: \n' + pretty(result));
+    console.log('Expected: \n' + pretty(sample) + ', but received: \n' + pretty(result));
   }
 };
 

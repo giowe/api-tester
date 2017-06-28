@@ -32,10 +32,12 @@ if (choices.length === 0) {
 }
 const choicesFn = () => inquirer.prompt(question); 
 
-module.exports = () => new Promise((resolve, reject) =>{
-  try {
-      resolve({params,choicesFn()});  
-    } else {
-      reject(err);
-    }
+module.exports = () => new Promise((resolve, reject) => {
+  if(tests === []){
+    resolve(choicesFn());
+  }else if(tests !== []){
+    resolve({params});
+  }else{
+    reject(err);
+  }
 });

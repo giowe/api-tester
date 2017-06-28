@@ -2,6 +2,7 @@ const argv = require('yargs').argv;
 const inquirer = require('inquirer');
 const fs = require("fs");
 const localDir = process.cwd();
+const path = require('path');
 
 if (argv.v || argv.version) {
   const pkg = require('./package.json');
@@ -9,10 +10,13 @@ if (argv.v || argv.version) {
   process.exit();
 }
 
+
 const params = {
   verbose: argv.verbose,
-  tests: argv._.map((testPath) => require(testPath))
+  tests: argv._.map((testPath) => require(path.join(localDir,testPath)))
 };
+
+console.log(params)
 
 const choices = fs.readdirSync(localDir).filter(file => {
   return file.slice(0, 11) === 'api-tester-' && file.slice(-3) === '.js';
@@ -34,10 +38,10 @@ const choicesFn = () => inquirer.prompt(question);
 
 module.exports = () => new Promise((resolve, reject) => {
   if(tests === []){
-    resolve({choicesFn()});
+    resolve(choicesFn());
   }else if(tests !== []){
-    resolve({params});
+    resolve(params);
   }else{
-    reject(err);
+    reject(console.log('errore:', err));
   }
 });

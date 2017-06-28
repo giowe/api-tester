@@ -35,8 +35,6 @@ const params = {
   output
 };
 
-console.log(JSon.stringify(output));
-
 module.exports = () => new Promise((resolve, reject) => {
   clean(true)
     .then((data) => {

@@ -2,7 +2,10 @@
   "name": "api-tester",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "bin": {
+    "t": "./bin/tester"
+  },
+  "main": "./tester.js",
   "scripts": {
     "start": "node tester.js"
   },

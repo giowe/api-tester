@@ -15,7 +15,7 @@ const params = {
   uri,
   input: {
     headers: {
-      'content-type': 'application/js'
+      'content-type': 'application/json'
     },
     body: {
       permalink: 'belongsTo-test',

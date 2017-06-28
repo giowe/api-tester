@@ -1,0 +1,16 @@
+{
+  "status": 200,
+  "count": 1,
+  "data": [
+    {
+      "fieldCount": 0,
+      "affectedRows": 1,
+      "insertId": 0,
+      "serverStatus": 3,
+      "warningCount": 0,
+      "message": "(Rows matched: 1  Changed: 0  Warnings: 0",
+      "protocol41": true,
+      "changedRows": 0
+    }
+  ]
+}

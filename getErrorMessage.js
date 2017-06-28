@@ -26,12 +26,11 @@ const diff = function(obj1, obj2) {
 };
 
 const getErrorMessage = (result, sample, type) => {
-  let errorMessage = '';
   if (type === 'application/json') {
     const errorData =diff(sample, result);
     console.log(chalk.red(pretty(errorData)));
-    console.log(pretty(sample));
-    console.log(pretty(result));
+    console.log('Expected:' + pretty(sample) + ',');
+    console.log('Result' + pretty(result));
   }
 };
 

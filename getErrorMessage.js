@@ -24,9 +24,9 @@ const diff = function(obj1, obj2) {
   }
   return result;
 };
+
 const getErrorMessage = (result, sample, type) => {
   let errorMessage = '';
-  console.log(diff(result, sample));
   if (type === 'application/json') {
     const errorData =diff(sample, result);
     console.log(chalk.red(errorData));
@@ -48,8 +48,5 @@ const obj2 = {
     l: 'a'
   }
 };
-const errorData = diff(obj1, obj2);
-
-console.log(chalk.red(JSON.stringify(errorData)));
 
 module.exports = getErrorMessage;

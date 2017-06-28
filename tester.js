@@ -7,11 +7,13 @@ const chalk = require('chalk');
 const getErrorMessage = require('./getErrorMessage');
 const promiseWaterfall = require('promise.waterfall');
 
+const testsPassed = [];
+const testsFailed = [];
 
 init().then((params) => {
-  console.log(params)
   const { verbose, tests } = params;
-  const wrappedTests = Object.values(tests).map((test) => () => new Promise((resolve, reject) => {
+  const testsNames = Object.keys(tests);
+  const wrappedTests = Object.values(tests).map((test, index) => () => new Promise((resolve, reject) => {
     test()
       .then((params) => {
       const { method, uri, output, input } = params;
@@ -26,19 +28,18 @@ init().then((params) => {
         opt, (err, res, body) => {
           if (err) {
             if (verbose) console.log(chalk.red(err));
-            console.log(chalk.red('\u2715 test non passato'));
+            console.log(chalk.red(`\u2715 Test "${testsNames[index]}" failed...`));
             resolve();
           }
           else {
             try {
               const outputBody = output.body;
               expect(body).to.deep.equal(outputBody);
-              console.log(chalk.green('\u2714 test passato'));
               if (verbose) console.log(outputBody);
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
-              console.log(chalk.red('\u2715 test fallito'));
+              console.log(chalk.red(`\u2715 Test "${testsNames[index]}" failed...`));
               if (verbose) getErrorMessage(body, output.body, type);
               resolve();
             }
@@ -51,6 +52,14 @@ init().then((params) => {
   const waterfall = () => promiseWaterfall(wrappedTests);
 
   waterfall()
-    .then(() => console.log(chalk.green('\nTests finished!')))
+    .then(() => console.log(chalk.cyan('\nTests finished!')))
     .catch((err) => console.log(err));
 }).catch((err) => console.log(err));
+
+testsPassed.forEach((test) => {
+  console.log(chalk.green(`\u2714 Test "${test}" passed.`));
+});
+
+testsFailed.forEach((test) => {
+  console.log(chalk.red(`\u2715 Test "${test}" failed...`));
+});

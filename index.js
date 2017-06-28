@@ -15,13 +15,16 @@ const promiseWaterfall = require('promise.waterfall');
 //   console.log('sample: ', sample);
 // }
 
+const testSuccess = (sample)  => {
+  console.log('')
+}
+
 init().then((params) => {
   console.log(params)
   const { verbose, tests } = params;
   const wrappedTests = tests.map((test) => () => new Promise((resolve, reject) => {
     test()
       .then((params) => {
-      console.log('ciao')
       const {method, uri, output, input} = params;
       const {headers, body} = input;
       const opt = {
@@ -34,19 +37,20 @@ init().then((params) => {
         opt, (err, res, body) => {
           if (err) {
             console.log(chalk.red(err));
-            reject(err);
+            console.log(chalk.red('test non passato'));
+            resolve()
           }
           else {
             try {
               const outputBody = output.body;
               expect(body).to.deep.equal(outputBody);
-              console.log(chalk.green('Done!!!'));
+              console.log(chalk.green('test passato'));
               resolve();
-              return next();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
-              getErrorMessage(body, output, type);
-              reject(err);
+              console.log(chalk.red('test fallito'))
+              getErrorMessage(body, output.body, type);
+              resolve();
             }
           }
         }
@@ -59,5 +63,4 @@ init().then((params) => {
   waterfall()
     .then(() => console.log('fatto'))
     .catch((err) => console.log(err));
-
 }).catch((err) => console.log(err));

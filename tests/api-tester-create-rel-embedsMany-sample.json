@@ -3,6 +3,7 @@
   "body":{
     "count": 8,
     "data": [
+<<<<<<< HEAD
       {
         "fieldCount": 0,
         "affectedRows": 1,
@@ -85,4 +86,68 @@
       }
     ]
   }
+=======
+    {
+      "fieldCount": 0,
+      "affectedRows": 1,
+      "insertId": 83,
+      "serverStatus": 3,
+      "warningCount": 1,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    },
+    {
+      "fieldCount": 0,
+      "affectedRows": 1,
+      "insertId": 0,
+      "serverStatus": 3,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    },
+    {
+      "fieldCount": 0,
+      "affectedRows": 1,
+      "insertId": 0,
+      "serverStatus": 3,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    },
+    {
+      "fieldCount": 0,
+      "affectedRows": 1,
+      "insertId": 0,
+      "serverStatus": 3,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    },
+    {
+      "fieldCount": 0,
+      "affectedRows": 1,
+      "insertId": 0,
+      "serverStatus": 3,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    },
+    {
+      "fieldCount": 0,
+      "affectedRows": 1,
+      "insertId": 0,
+      "serverStatus": 3,
+      "warningCount": 0,
+      "message": "",
+      "protocol41": true,
+      "changedRows": 0
+    }
+  ]
+}
+>>>>>>> a06486f871f3f36badeee12be9d469251bae607c
 }

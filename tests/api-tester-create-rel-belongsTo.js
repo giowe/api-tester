@@ -30,7 +30,8 @@ const params = {
 };
 
 module.exports = () => new Promise((resolve, reject) => {
-  clean(true)
+  console.log("prima clean di create-rel-belongTo")
+    clean(true)
     .then((data) => {
       console.log(data);
       return auth();
@@ -38,6 +39,7 @@ module.exports = () => new Promise((resolve, reject) => {
     .then((token) => {
       params.input.headers.authorization = token;
       resolve(params);
+      console.log('dopo clean di create-rel-belongsTo')
     })
     .catch((err) => {
       reject(err);

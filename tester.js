@@ -37,18 +37,18 @@ init().then((params) => {
         opt, (err, res, body) => {
           if (err) {
             console.log(chalk.red(err));
-            console.log(chalk.red('test non passato'));
-            resolve()
+            console.log(chalk.red('\u2715 test non passato'));
+            resolve();
           }
           else {
             try {
               const outputBody = output.body;
               expect(body).to.deep.equal(outputBody);
-              console.log(chalk.green('test passato'));
+              console.log(chalk.green('\u2714 test passato'));
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
-              console.log(chalk.red('test fallito'))
+              console.log(chalk.red('\u2715 test fallito'))
               getErrorMessage(body, output.body, type);
               resolve();
             }

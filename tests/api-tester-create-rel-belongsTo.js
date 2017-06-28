@@ -8,7 +8,7 @@ const path = 'contents/contents';
 const output = require('./api-tester-create-rel-belongsTo-sample.json');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
-const uri = urlJoin(urlSecret,path);
+const uri = urlJoin(urlSecret, path);
 
 const params = {
   method,
@@ -24,7 +24,7 @@ const params = {
         permalink: 'pagine',
         lang: 'it'
       }
-    },
+    }
   },
   output
 };

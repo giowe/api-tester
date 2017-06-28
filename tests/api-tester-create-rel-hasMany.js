@@ -8,14 +8,14 @@ const path = 'contents/types';
 const output = require('./api-tester-create-rel-hasMany-sample.json');
 const urlSecret = 'https://api-staging-f3.soluzionifutura.it';
 const urlJoin = require('url-join');
-const uri = urlJoin(urlSecret,path);
+const uri = urlJoin(urlSecret, path);
 
 const params = {
   method,
   uri,
   input: {
     headers:{
-      'content-type': 'application/json',
+      'content-type': 'application/json'
     },
     body: {
       permalink: 'hasMany-test',
@@ -34,6 +34,8 @@ const params = {
   },
   output
 };
+
+console.log(JSon.stringify(output));
 
 module.exports = () => new Promise((resolve, reject) => {
   clean(true)

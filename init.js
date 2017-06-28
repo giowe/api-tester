@@ -19,7 +19,7 @@ const params = {
 argv._.forEach((testPath) =>{
     params.test.testPath = require(path.join(localDir,testPath));
 });
- 
+
 
 const choices = fs.readdirSync(localDir).filter(file => {
   return file.slice(0, 11) === 'api-tester-' && file.slice(-3) === '.js';

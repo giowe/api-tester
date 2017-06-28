@@ -7,7 +7,6 @@ const isEmptyObject = function(obj) {
   return true;
 };
 
-// quello sbagliato => obj2
 const diff = function(obj1, obj2) {
   const result = {};
   let change;
@@ -30,24 +29,8 @@ const getErrorMessage = (result, sample, type) => {
   if (type === 'application/json') {
     const errorData =diff(sample, result);
     console.log(chalk.red(JSON.stringify(errorData)));
-    console.log(JSON.stringify(result));
     console.log(JSON.stringify(sample));
-  }
-};
-
-const obj1 = {
-  name: 'pippo',
-  lastname: 'ciao',
-  d:{
-    l: 's'
-  }
-};
-
-const obj2 = {
-  name: 'pluto',
-  lastname: 'ciao',
-  d: {
-    l: 'a'
+    console.log(JSON.stringify(result));
   }
 };
 

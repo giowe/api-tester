@@ -50,12 +50,10 @@ init().then((params) => {
                 status: res.statusCode,
                 headers: res.headers,
                 body,
-                headersKeys: Object.keys(headers),
+                headersKeys: Object.keys(res.headers),
                 bodyKeys: Object.keys(body)
               };
-              console.log(result);
-              console.log(result, output);
-              const errorStatus = getTestStatus();
+              const errorStatus = getTestStatus(result, output);
                 //// expect(body).to.deep.equal(outputBody);
               testsPassed.push(testsNames[index]);
               if (verbose) {

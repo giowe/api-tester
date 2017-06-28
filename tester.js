@@ -12,11 +12,12 @@ const testsFailed = [];
 
 init().then((params) => {
   const { verbose, tests } = params;
-  console.log(tests);
   const testsNames = Object.keys(tests);
   const wrappedTests = Object.values(tests).map((test, index) => () => new Promise((resolve, reject) => {
     test()
       .then((params) => {
+      if (!verbose) { process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `)); }
+      else console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
       const { method, uri, output, input } = params;
       const { headers, body } = input;
       const opt = {
@@ -29,6 +30,7 @@ init().then((params) => {
         opt, (err, res, body) => {
           if (err) {
             if (verbose) console.log(chalk.red(err));
+            else process.stdout.write('\u2715');
             testsFailed.push(testsNames[index]);
             resolve();
           }
@@ -37,12 +39,14 @@ init().then((params) => {
               const outputBody = output.body;
               expect(body).to.deep.equal(outputBody);
               testsPassed.push(testsNames[index]);
-              if (verbose) console.log(outputBody);
+              if (verbose) { console.log(outputBody);}
+              else process.stdout.write('\u2714');
               resolve();
             } catch (err) {
               const type = res.headers['content-type'].split('; ')[0];
               testsFailed.push(testsNames[index]);
-              if (verbose) getErrorMessage(body, output.body, type);
+              if (verbose) { getErrorMessage(body, output.body, type); }
+              else process.stdout.write('\u2715');
               resolve();
             }
           }

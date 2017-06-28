@@ -4,16 +4,16 @@ const request = require('request');
 const { expect } = require('chai');
 const init = require('./init.js');
 const chalk = require('chalk');
-// const getErrorMessage = require('./getErrorMessage');
+const getErrorMessage = require('./getErrorMessage');
 const columnify = require('columnify');
 const Q = require('q');
 // init().then((params) => { console.log(params); });
 const promiseWaterfall = require('promise.waterfall');
 
-const getErrorMessage = (result, sample, type) => {
-  console.log('result: ', result);
-  console.log('sample: ', sample);
-}
+// const getErrorMessage = (result, sample, type) => {
+//   console.log('result: ', result);
+//   console.log('sample: ', sample);
+// }
 
 init().then((params) => {
   console.log(params)

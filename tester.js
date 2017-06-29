@@ -63,13 +63,13 @@ init().then((params) => {
                   case 1: {
                     testsWarned.push(testName);
                     const type = res.headers['content-type'].split('; ')[0];
-                    getErrorMessage(result, output, type, false);
+                    if (verbose) getErrorMessage(result, output, type, false);
                     break;
                   }
                   case 2: {
                     testsFailed.push(testName);
                     const type = res.headers['content-type'].split('; ')[0];
-                    getErrorMessage(result, output, type, true);
+                    if (verbose) getErrorMessage(result, output, type, true);
                     break;
                   }
                   default: {
@@ -133,11 +133,15 @@ init().then((params) => {
     .then(() => {
       console.log(chalk.cyan('\nTests finished!\n'));
       testsPassed.forEach((test) => {
-        console.log(chalk.green(`\u2714 Test "${test}" passed.`));
+        console.log(chalk.green(`\u2714 Success: test "${test}".`));
+      });
+
+      testsWarned.forEach((test) => {
+        console.log(chalk.yellow(`\u2717 Warning: test "${test}".`));
       });
 
       testsFailed.forEach((test) => {
-        console.log(chalk.red(`\u2718 Test "${test}" failed...`));
+        console.log(chalk.red(`\u2718 Error: test "${test}"`));
       });
     })
     .catch((err) => console.log(err));

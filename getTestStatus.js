@@ -71,7 +71,7 @@ const getErrorStatus = (result, sample) => {
   if (status > 0 && status < sampleKeysLength) statusExit = 1;
   else if (status === 0) statusExit = 0;
   else if (status === sampleKeysLength) statusExit = 2;
-
+  console.log(result, sample);
   return statusExit;
 };
 

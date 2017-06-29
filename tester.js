@@ -14,8 +14,9 @@ const testsFailed = [];
 
 init().then((params) => {
   const { verbose, tests } = params;
-  const testsNames = Object.keys(tests);
-  const wrappedTests = Object.values(tests).map((test, index) => () => {
+  const testsNames = tests.map(test => Object.keys(test)[0]);
+  const testsPromises = tests.map(test => Object.values(test)[0]);
+  const wrappedTests = testsPromises.map((test, index) => () => {
     return new Promise((resolve, reject) => {
       test()
         .then((params) => {
@@ -77,7 +78,24 @@ init().then((params) => {
                 }
                 if (verbose) {
                   console.log(pretty(outputBody));
-                  console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
+                  process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `));
+                  switch (errorStatus) {
+                    case 0: {
+                      process.stdout.write(chalk.green('\u2714\n'));
+                      break;
+                    }
+                    case 1: {
+                      process.stdout.write(chalk.yellow('\u2717\n'));
+                      break;
+                    }
+                    case 2: {
+                      process.stdout.write(chalk.red('\u2718\n'));
+                      break;
+                    }
+                    default: {
+                      console.log('There is a problem in getErrorStatus function, ', errorStatus);
+                    }
+                  }
                 }
                 else {
                   process.stdout.write(chalk.cyan(`Processing "${testsNames[index]}"... `));

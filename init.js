@@ -22,24 +22,26 @@ const testsValidation = (
   return testsValidated;
 };
 
-const getTestsObj = (
+const getTestsArray = (
   tests,
   pathToAppend = ''
 ) => {
-  const testsObj = {};
+  const testsArray = [];
   tests.forEach(testName => {
     const test = require(path.join(localDir, pathToAppend, testName));
     if (typeof test === 'object' && Array.isArray(test.tests)) {
-      Object.assign(testsObj, getTestsObj(test.tests, testName.split('/').slice(0, -1).join('/')));
+      testsArray.push(
+        ...getTestsArray(test.tests, testName.split('/').slice(0, -1).join('/'))
+      );
     } else if (typeof test === 'function') {
       testName = testName.split('/').slice(-1)[0];
-      testsObj[testName] = test;
+      testsArray.push({[testName]: test});
     } else {
       console.log(`Test "${testName}" not valid`);
       process.exit();
     }
   });
-  return testsObj;
+  return testsArray;
 };
 
 if (argv.v || argv.version) {
@@ -49,8 +51,7 @@ if (argv.v || argv.version) {
 }
 
 const params = {
-  verbose: argv.verbose,
-  tests: {}
+  verbose: argv.verbose
 };
 
 const testsValidated = testsValidation(argv._);
@@ -80,12 +81,12 @@ if (choices.length === 0) {
 
 module.exports = () => new Promise((resolve, reject) => {
   if (testsValidated.length !== 0) {
-    Object.assign(params.tests, getTestsObj(testsValidated));
+    params.tests = getTestsArray(testsValidated);
     resolve(params);
   } else {
     inquirer.prompt(question)
       .then((result) => {
-        Object.assign(params.tests, getTestsObj([result.Test]));
+        params.tests = getTestsArray([result.Test]);
         resolve(params);
       });
   }}

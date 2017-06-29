@@ -10,7 +10,7 @@ let sampleBodyKeys;
 
 const tryStatus = (res, sample) => {
   try{
-    expect(res).to.be.equal(sample);
+    expect(res).to.equal(sample);
   }catch(err){
     status++;
   }

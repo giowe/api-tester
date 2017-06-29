@@ -1,57 +1,45 @@
 'use strict';
 
-const { expect } = require('chai');
+const deepEql = require("deep-eql");
 let statusError = 0;
 let statusExit = -1;
 
-const trystatus = (res, sample) => {
-  try{
-    expect(res).to.equal(sample);
-  }catch(err){
-    statusError++;
-  }
+const tryStatus = (res, sample) => {
+  if(!deepEql(res, sample)) statusError++;
 };
 
-const trystatusObj = (res, sample) => {
-  try{
-    expect(res).to.deep.equal(sample);
-  }catch(err){
-    statusError++;
-  }
+const tryStatusObj = (res, sample) => {
+  if(!deepEql(res, sample)) statusError++;
 };
 
-const trystatusKeys = (resKeys, sampleKeys) => {
-  try {
-    expect(resKeys).to.deep.equal(sampleKeys);
-  } catch(err){
-    statusError++;
-  }
+const tryStatusKeys = (resKeys, sampleKeys) => {
+  if(!deepEql(resKeys, sampleKeys)) statusError++;
 };
 
-const getErrorstatusError = (result, sample) => {
+const getStatusError = (result, sample) => {
 
   const sampleKeysLength = Object.keys(sample).length;
   if (sample.status) {
-    trystatus(result.status, sample.status);
+    tryStatus(result.status, sample.status);
   } else if(sample.status && !result.status) {
     statusError++;
   }
 
   if (sample.headers) {
-    trystatusObj(result.headers, sample.headers,);
+    tryStatusObj(result.headers, sample.headers,);
   }else if(sample.headers && !result.headers) {
     statusError++;
   }
 
   if (sample.body) {
-    trystatusObj(result.body, sample.body);
+    tryStatusObj(result.body, sample.body);
   } else if(sample.body && !result.body) {
     statusError++;
   }
 
   if (sample.headersKeys) {
     if (result.headersKeys.length === sample.headersKeys.length) {
-      trystatusKeys(result.headersKeys, sample.headersKeys);
+      tryStatusKeys(result.headersKeys, sample.headersKeys);
     } else {
       statusError++;
     }
@@ -61,7 +49,7 @@ const getErrorstatusError = (result, sample) => {
 
   if (sample.bodyKeys) {
     if (result.bodyKeys.length === sample.bodyKeys.length) {
-      trystatusKeys(result.bodyKeys, sample.bodyKeys);
+      tryStatusKeys(result.bodyKeys, sample.bodyKeys);
   } else {
       statusError++;
     }
@@ -107,4 +95,4 @@ console.log(temp);
 // 1 => almeno una chiave e giusta
 // 2 => nessuna chiave e giusta
 
-module.exports = getErrorstatusError;
+module.exports = getStatusError;

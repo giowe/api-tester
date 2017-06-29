@@ -31,35 +31,41 @@ const trystatusKeys = (resKeys, sampleKeys) => {
 const getErrorstatusError = (result, sample) => {
 
   const sampleKeysLength = Object.keys(sample).length;
-  if (result.statusError && sample.statusError) {
-    trystatus(result.statusError, sample.statusError);
+  if (sample.status) {
+    trystatus(result.status, sample.status);
+  } else if(sample.status && !result.status) {
+    statusError++;
   }
 
-  if (result.headers && sample.headers) {
+  if (sample.headers) {
     trystatusObj(result.headers, sample.headers,);
+  }else if(sample.headers && !result.headers) {
+    statusError++;
   }
 
-  if (result.boy && sample.body) {
+  if (sample.body) {
     trystatusObj(result.body, sample.body);
+  } else if(sample.body && !result.body) {
+    statusError++;
   }
 
-  if (result.headersKeys && sample.headersKeys) {
+  if (sample.headersKeys) {
     if (result.headersKeys.length === sample.headersKeys.length) {
       trystatusKeys(result.headersKeys, sample.headersKeys);
     } else {
       statusError++;
     }
-  } else {
-    statusError ++;
+  } else if(sample.headersKeys && !result.headersKeys) {
+    statusError++;
   }
 
-  if (result.bodyKeys && sample.bodyKeys) {
+  if (sample.bodyKeys) {
     if (result.bodyKeys.length === sample.bodyKeys.length) {
       trystatusKeys(result.bodyKeys, sample.bodyKeys);
   } else {
       statusError++;
     }
-  } else {
+  } else if(sample.bodyKeys && !result.bodyKeys){
     statusError++;
   }
 

@@ -4,28 +4,6 @@ const { expect } = require('chai');
 let status = 0;
 let statusExit = -1;
 
-const isEmptyObject = function(obj) {
-  for (let name in obj) return false;
-  return true;
-};
-
-const diff = function(obj1, obj2) {
-  const result = {};
-  let change;
-  for (let key in obj1) {
-    if (typeof obj2[key] == 'object' && typeof obj1[key] == 'object') {
-      change = diff(obj1[key], obj2[key]);
-      if (isEmptyObject(change) === false) {
-        result[key] = change;
-      }
-    }
-    else if (obj2[key] != obj1[key]) {
-      result[key] = obj2[key];
-    }
-  }
-  return result;
-};
-
 const tryStatus = (res, sample) => {
   try{
     expect(res).to.equal(sample);
@@ -85,8 +63,6 @@ const getErrorStatus = (result, sample) => {
   if (status > 0 && status < sampleKeysLength) statusExit = 1;
   else if (status === 0) statusExit = 0;
   else if (status === sampleKeysLength) statusExit = 2;
-  console.log('result:', result, 'sample:', sample);
-  console.log('differenze', JSON.stringify(differences));
   return statusExit;
 };
 

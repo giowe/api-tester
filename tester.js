@@ -40,7 +40,7 @@ init().then((params) => {
                   process.stdout.write(chalk.red('\u2718\n'));
                 }
                 console.log(chalk.cyan(`Description: ${description}`));
-                console.log(' ------------------------------------------------------------------ ');
+                console.log(' \n ');
                 testsFailed.push(testsNames[index]);
                 resolve();
               }
@@ -118,7 +118,7 @@ init().then((params) => {
                   }
                 }
                 if(description) console.log(chalk.cyan(`Description: ${description}`));
-                console.log(' ------------------------------------------------------------------ ');
+                console.log(' \n ');
                 resolve();
               }
             }

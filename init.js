@@ -20,7 +20,7 @@ argv._.forEach((testPath) =>{
 });
 
 const choices = fs.readdirSync(localDir).filter(file => {
-  return file.slice(0, 11) === 'api-tester-' && file.slice(-3) === '.js';
+  return file.slice(0, 11) === 't-' && file.slice(-3) === '.js';
 });
 
 const question = {

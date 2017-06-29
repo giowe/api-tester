@@ -19,6 +19,7 @@ const testsValidation = (
     }
     testsValidated.push(testName);
   });
+  console.log(testsValidated)
   return testsValidated;
 };
 
@@ -52,7 +53,6 @@ const params = {
 };
 
 const testsValidated = testsValidation(argv._);
-Object.assign(params.tests, getTestsObj(testsValidated));
 
 const choices = fs.readdirSync(localDir).filter(file => {
   return (
@@ -78,14 +78,14 @@ if (choices.length === 0) {
 }
 
 module.exports = () => new Promise((resolve, reject) => {
-  if(Object.keys(params.tests).length === 0){
+  if (testsValidated.length !== 0) {
+    Object.assign(params.tests, getTestsObj(testsValidated));
+    resolve(params);
+  } else {
     inquirer.prompt(question)
       .then((result) => {
         Object.assign(params.tests, getTestsObj([result.Test]));
-        console.log(params);
         resolve(params);
       });
-  } else {
-    console.log(params);
-    resolve(params);
-  }});
+  }}
+);

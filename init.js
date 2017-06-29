@@ -1,6 +1,8 @@
+'use strict';
+
 const argv = require('yargs').argv;
 const inquirer = require('inquirer');
-const fs = require("fs");
+const fs = require('fs');
 const localDir = process.cwd();
 const path = require('path');
 
@@ -48,17 +50,22 @@ const params = {
   tests: {}
 };
 
-
 const testsValidated = testsValidation(argv._);
 Object.assign(params.tests, getTestsObj(testsValidated));
 
 const choices = fs.readdirSync(localDir).filter(file => {
-  return file.slice(0, 2) === 't-' && file.slice(-3) === '.js';
+  return (
+    file.slice(0, 2) === 't-'
+    && (
+        file.slice(-3) === '.js'
+      || file === 't-config.json'
+      )
+  );
 });
 
 const question = {
-  type: "list",
-  name: "Test",
+  type: 'list',
+  name: 'Test',
   message: 'Select the test to execute: ',
   choices,
   default: choices[0]
@@ -74,8 +81,10 @@ module.exports = () => new Promise((resolve, reject) => {
     inquirer.prompt(question)
       .then((result) => {
         Object.assign(params.tests, getTestsObj([result.Test]));
+        console.log(params);
         resolve(params);
       });
   } else {
+    console.log(params);
     resolve(params);
-}});
+  }});

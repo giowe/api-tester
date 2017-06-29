@@ -46,13 +46,11 @@ init().then((params) => {
                 try {
                   const outputBody = output.body;
                   if (typeof body !== 'object') body = JSON.parse(body);
-                  const result = {
-                    status: res.statusCode,
-                    headers: res.headers,
-                    body,
-                    headersKeys: Object.keys(res.headers),
-                    bodyKeys: Object.keys(body)
-                  };
+                  if (output.status) result[status] = res.statusCode;
+                  if (output.headers) result[headers] = res.headers;
+                  if (output.body) result[body] = body;
+                  if (output.bodyKeys) result[bodyKeys] = Object.keys(body);
+                  if (output.headersKeys) result[headersKeys] = Object.keys(res.headers);
                   console.log('result', result);
                   console.log('output', output);
                   const errorStatus = getTestStatus(result, output);
@@ -64,10 +62,14 @@ init().then((params) => {
                     }
                     case 1: {
                       testsWarned.push(test);
+                      const type = res.headers['content-type'].split('; ')[0];
+                      getErrorMessage(body, output.body, type, false);
                       break;
                     }
                     case 2: {
                       testsFailed.push(test);
+                      const type = res.headers['content-type'].split('; ')[0];
+                      getErrorMessage(body, output.body, type, true);
                       break;
                     }
                     default: {
@@ -94,15 +96,13 @@ init().then((params) => {
                         break;
                       }
                       default: {
-                        console.log("There is a problem in errorStatus function, ", errorStatus);
+                        console.log("There is a problem in getErrorStatus function, ", errorStatus);
                       }
                     }
                   }
                   console.log(' ------------------------------------------------------------------ ');
                   resolve();
                 } catch (err) {
-                  const type = res.headers['content-type'].split('; ')[0];
-                  testsFailed.push(testsNames[index]);
                   if (verbose) {
                     getErrorMessage(body, output.body, type);
                     console.log(chalk.cyan(`Processing "${testsNames[index]}"...`));
@@ -119,7 +119,7 @@ init().then((params) => {
           );
         })
         .catch((err) => console.log(err));
-    })
+    });
   });
   const waterfall = () => promiseWaterfall(wrappedTests);
 
@@ -133,7 +133,6 @@ init().then((params) => {
       testsFailed.forEach((test) => {
         console.log(chalk.red(`\u2718 Test "${test}" failed...`));
       });
-
     })
     .catch((err) => console.log(err));
 }).catch((err) => console.log(err));

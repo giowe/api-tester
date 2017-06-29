@@ -25,10 +25,11 @@ const diff = function(obj1, obj2) {
   return result;
 };
 
-const getErrorMessage = (result, sample, type) => {
+const getErrorMessage = (result, sample, type, isError) => {
   if (type === 'application/json') {
     const errorData =diff(sample, result);
-    console.log(chalk.red(pretty(errorData)));
+    if (isError) console.log(chalk.red(pretty(errorData)));
+    else console.log(chalk.yellow(pretty(errorData)));
     console.log('Expected: \n' + pretty(sample) + ', but received: \n' + pretty(result));
   }
 };

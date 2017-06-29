@@ -19,7 +19,6 @@ const testsValidation = (
     }
     testsValidated.push(testName);
   });
-  console.log(testsValidated)
   return testsValidated;
 };
 
@@ -39,6 +38,7 @@ const getTestsObj = (
       process.exit();
     }
   });
+  return testsObj;
 };
 
 if (argv.v || argv.version) {

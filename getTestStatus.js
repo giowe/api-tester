@@ -14,7 +14,6 @@ const tryStatus = (res, sample) => {
   }catch(err){
     status++;
   }
-  console.log(status);
 };
 
 const tryStatusObj = (res, sample) => {
@@ -23,7 +22,6 @@ const tryStatusObj = (res, sample) => {
   }catch(err){
     status++;
   }
-  console.log(status);
 };
 
 const tryStatusKeys = (resKeys, sampleKeys) => {
@@ -32,7 +30,6 @@ const tryStatusKeys = (resKeys, sampleKeys) => {
   } catch(err){
     status++
   }
-  console.log(status);
 };
 
 const getErrorStatus = (result, sample) => {

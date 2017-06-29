@@ -3,10 +3,28 @@
 const { expect } = require('chai');
 let status = 0;
 let statusExit = -1;
-let resultHeadersKeys;
-let resultBodyKeys;
-let sampleHeadersKeys;
-let sampleBodyKeys;
+
+const isEmptyObject = function(obj) {
+  for (let name in obj) return false;
+  return true;
+};
+
+const diff = function(obj1, obj2) {
+  const result = {};
+  let change;
+  for (let key in obj1) {
+    if (typeof obj2[key] == 'object' && typeof obj1[key] == 'object') {
+      change = diff(obj1[key], obj2[key]);
+      if (isEmptyObject(change) === false) {
+        result[key] = change;
+      }
+    }
+    else if (obj2[key] != obj1[key]) {
+      result[key] = obj2[key];
+    }
+  }
+  return result;
+};
 
 const tryStatus = (res, sample) => {
   try{
@@ -28,41 +46,37 @@ const tryStatusKeys = (resKeys, sampleKeys) => {
   try {
     expect(resKeys).to.deep.equal(sampleKeys);
   } catch(err){
-    status++
+    status++;
   }
 };
 
 const getErrorStatus = (result, sample) => {
 
   const sampleKeysLength = Object.keys(sample).length;
-
-  if (sample.status) {
+  const differences = diff(sample, result);
+  if (result.status && sample.status) {
     tryStatus(result.status, sample.status);
   }
 
-  if (sample.headers) {
+  if (result.headers && sample.headers) {
     tryStatusObj(result.headers, sample.headers,);
   }
 
-  if (sample.body) {
+  if (result.boy && sample.body) {
     tryStatusObj(result.body, sample.body);
   }
 
   if (sample.headersKeys) {
-    resultHeadersKeys = Object.keys(result.headersKeys);
-    sampleHeadersKeys = Object.keys(sample.headersKeys);
-    if (Object.keys(resultHeaders).length === Object.keys(sampleHeaders).length) {
-      tryStatusKeys(resultHeadersKeys, sampleHeadersKeys);
+    if (result.headersKeys.length === sample.headersKeys.length) {
+      tryStatusKeys(result.headersKeys, sample.headersKeys);
     } else {
       status++;
     }
   }
 
   if (sample.bodyKeys) {
-    resultBodyKeys = Object.keys(result.bodyKeys);
-    sampleBodyKeys = Object(sample.bodyKeys);
-    if (resultBodyKeys.length === sampleBodyKeys.length) {
-      tryStatusKeys(resultBodyKeys, sampleBodyKeys);
+    if (result.bodyKeys.length === sample.bodyKeys.length) {
+      tryStatusKeys(result.bodyKeys, sample.bodyKeys);
   } else {
       status++;
     }
@@ -71,7 +85,8 @@ const getErrorStatus = (result, sample) => {
   if (status > 0 && status < sampleKeysLength) statusExit = 1;
   else if (status === 0) statusExit = 0;
   else if (status === sampleKeysLength) statusExit = 2;
-  console.log(result, sample);
+  console.log('result:', result, 'sample:', sample);
+  console.log('differenze', JSON.stringify(differences));
   return statusExit;
 };
 
@@ -82,7 +97,7 @@ const getErrorStatus = (result, sample) => {
   },
   body: {
 
-  }
+  },
 };
 
 const samplePROVA = {
@@ -91,7 +106,10 @@ const samplePROVA = {
   },
   body: {
     fuck: 'fuck',
-  }
+  },
+  headersKey : [
+
+  ]
 };
 
 const temp = getErrorStatus(resultPROVA, samplePROVA);

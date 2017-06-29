@@ -13,7 +13,7 @@ const testsValidation = (
   testsNames.forEach((
     testName
   ) => {
-    if (testName.slice(0, 2) !== 't-') {
+    if (testName.split('/').slice(-1)[0].slice(0, 2) !== 't-') {
       console.log(`Test "${testName}" not valid`);
       process.exit();
     }
@@ -23,13 +23,14 @@ const testsValidation = (
 };
 
 const getTestsObj = (
-  tests
+  tests,
+  pathToAppend = ''
 ) => {
   const testsObj = {};
   tests.forEach(testName => {
-    const test = require(path.join(localDir, testName));
+    const test = require(path.join(localDir, pathToAppend, testName));
     if (typeof test === 'object' && Array.isArray(test.tests)) {
-      Object.assign(testsObj, getTestsObj(test.tests));
+      Object.assign(testsObj, getTestsObj(test.tests, testName.split('/').slice(0, -1).join('/')));
     } else if (typeof test === 'function') {
       testsObj[testName] = test;
     } else {

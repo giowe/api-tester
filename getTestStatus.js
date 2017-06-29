@@ -1,6 +1,6 @@
 'use strict';
 
-let statusError = 0;
+let statusError;
 let statusExit = -1;
 
 const tryStatus = (res, sample) => {
@@ -10,6 +10,7 @@ const tryStatus = (res, sample) => {
 };
 
 const getStatusError = (result, sample) => {
+  statusError = 0;
   const sampleKeysLength = Object.keys(sample).length;
 
   if (sample.status) {

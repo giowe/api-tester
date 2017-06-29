@@ -89,14 +89,18 @@ const getErrorStatus = (result, sample) => {
 };
 
 const samplePROVA = {
-  status: 'popopop',
   headers:{
-    dsa: 'godo',
+
   },
   body: {
     fuck: 'fuck',
   }
-};*/
+};
+
+const temp = getErrorStatus(resultPROVA, samplePROVA);
+
+console.log(temp);
+*/
 
 // deve returnare:
 // 0 => tutte le chiavi sono giuste

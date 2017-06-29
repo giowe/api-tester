@@ -32,6 +32,7 @@ const getTestsObj = (
     if (typeof test === 'object' && Array.isArray(test.tests)) {
       Object.assign(testsObj, getTestsObj(test.tests, testName.split('/').slice(0, -1).join('/')));
     } else if (typeof test === 'function') {
+      testName = testName.split('/').slice(-1)[0];
       testsObj[testName] = test;
     } else {
       console.log(`Test "${testName}" not valid`);

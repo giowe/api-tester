@@ -62,13 +62,13 @@ init().then((params) => {
                   case 1: {
                     testsWarned.push(testName);
                     const type = res.headers['content-type'].split('; ')[0];
-                    getErrorMessage(body, output.body, type, false);
+                    getErrorMessage(result, output, type, false);
                     break;
                   }
                   case 2: {
                     testsFailed.push(testName);
                     const type = res.headers['content-type'].split('; ')[0];
-                    getErrorMessage(body, output.body, type, true);
+                    getErrorMessage(result, output, type, true);
                     break;
                   }
                   default: {

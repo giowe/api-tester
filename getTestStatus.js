@@ -31,7 +31,6 @@ const tryStatusKeys = (resKeys, sampleKeys) => {
 const getErrorStatus = (result, sample) => {
 
   const sampleKeysLength = Object.keys(sample).length;
-  const differences = diff(sample, result);
   if (result.status && sample.status) {
     tryStatus(result.status, sample.status);
   }

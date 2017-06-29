@@ -1,31 +1,102 @@
 'use strict';
 
 const { expect } = require('chai');
-let status;
-let statusExit;
+let status = 0;
+let statusExit = -1;
+let resultHeadersKeys;
+let resultBodyKeys;
+let sampleHeadersKeys;
+let sampleBodyKeys;
 
-function tryStatus(result, sample){
+const tryStatus = (res, sample) => {
   try{
-    expect(result).to.deep.equal(sample);
-  }catch(err) {
+    expect(res).to.be.equal(sample);
+  }catch(err){
     status++;
   }
-}
+  console.log(status);
+};
+
+const tryStatusObj = (res, sample) => {
+  try{
+    expect(res).to.deep.equal(sample);
+  }catch(err){
+    status++;
+  }
+  console.log(status);
+};
+
+const tryStatusKeys = (resKeys, sampleKeys) => {
+  try {
+    expect(resKeys).to.deep.equal(sampleKeys);
+  } catch(err){
+    status++
+  }
+  console.log(status);
+};
 
 const getErrorStatus = (result, sample) => {
 
-  tryStatus(result.status, sample.status);
-  tryStatus(result.headers, sample.headers);
-  tryStatus(result.body, sample.body);
-  tryStatus(result.headerskeys, sample.bodykeys);
-  tryStatus(result.bodykeys, samplekeys);
+  const sampleKeysLength = Object.keys(sample).length;
 
-  if (status >= 1 || status <= 4) statusExit = 1;
+  if (sample.status) {
+    tryStatus(result.status, sample.status);
+  }
+
+  if (sample.headers) {
+    tryStatusObj(result.headers, sample.headers,);
+  }
+
+  if (sample.body) {
+    tryStatusObj(result.body, sample.body);
+  }
+
+  if (sample.headersKeys) {
+    resultHeadersKeys = Object.keys(result.headersKeys);
+    sampleHeadersKeys = Object.keys(sample.headersKeys);
+    if (Object.keys(resultHeaders).length === Object.keys(sampleHeaders).length) {
+      tryStatusKeys(resultHeadersKeys, sampleHeadersKeys);
+    } else {
+      status++;
+    }
+  }
+
+  if (sample.bodyKeys) {
+    resultBodyKeys = Object.keys(result.bodyKeys);
+    sampleBodyKeys = Object(sample.bodyKeys);
+    if (resultBodyKeys.length === sampleBodyKeys.length) {
+      tryStatusKeys(resultBodyKeys, sampleBodyKeys);
+  } else {
+      status++;
+    }
+  }
+
+  if (status > 0 && status < sampleKeysLength) statusExit = 1;
   else if (status === 0) statusExit = 0;
-  else if (status === 5) statusExit = 2;
+  else if (status === sampleKeysLength) statusExit = 2;
 
   return statusExit;
 };
+
+/*const resultPROVA  = {
+  status: 'p',
+  headers:{
+
+  },
+  body: {
+
+  }
+};
+
+const samplePROVA = {
+  status: 'popopop',
+  headers:{
+    dsa: 'godo',
+  },
+  body: {
+    fuck: 'fuck',
+  }
+};*/
 
 // deve returnare:
 // 0 => tutte le chiavi sono giuste

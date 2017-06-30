@@ -5,7 +5,7 @@ const request = require('request');
 const pretty = require('js-object-pretty-print').pretty;
 const getTests = require('./getTests.js');
 const waterfall = require('promise.waterfall');
-const getTestErrors = require('./getTestErrors');
+const validate = require('./validate');
 const { getValue } = require('./utils');
 
 const summary = [];
@@ -45,7 +45,7 @@ getTests()
                   result.body = body;
                 }
 
-                const { status: statusErrors, headers: headersErrors, body: bodyErrors } = getTestErrors(output, result, options);
+                const { status: statusErrors, headers: headersErrors, body: bodyErrors } = validate(output, result, options);
                 const errorMessage = [];
                 const statusErrorsL = statusErrors.length;
                 const headersErrorsL = headersErrors.length;

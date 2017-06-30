@@ -5,7 +5,7 @@
   "bin": {
     "t": "./bin/tester"
   },
-  "main": "./tester.js",
+  "main": "./main.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/giowe/api-tester.git"

@@ -6,9 +6,6 @@
     "t": "./bin/tester"
   },
   "main": "./tester.js",
-  "scripts": {
-    "start": "node tester.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/giowe/api-tester.git"

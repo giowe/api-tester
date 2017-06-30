@@ -1,13 +1,23 @@
 'use strict';
 
-const request = require('request');
-const init = require('./init.js');
+/*const request = require('request');
 const chalk = require('chalk');
-const getErrorMessage = require('./getErrorMessage');
 const promiseWaterfall = require('promise.waterfall');
 const pretty = require('js-object-pretty-print').pretty;
-const getTestStatus = require('./getTestStatus');
 
+const getErrorMessage = require('./getErrorMessage');
+const getTestStatus = require('./getTestStatus');*/
+
+const getTests = require('./getTests.js');
+
+getTests()
+  .then(params => {
+    console.log(params);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+/*
 const testsPassed = [];
 const testsWarned = [];
 const testsFailed = [];
@@ -147,3 +157,4 @@ init().then((params) => {
     .catch((err) => console.log(err));
 }).catch((err) => console.log(err));
 
+*/

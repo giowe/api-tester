@@ -37,7 +37,7 @@ module.exports = (sample, result, options) => {
 
   if (sample.body) {
     if (options.body && options.body.keysOnly) {
-
+      //todo keys only
     } else {
       const bodyDiffs = diff(sample.body, result.body);
       if (!isEmptyObject(bodyDiffs)) errors.body.push(`- differences between expected sample and received result:\n${chalk.white(pretty(bodyDiffs))}`);

@@ -9,29 +9,29 @@ const getValue = (obj, requiredKey) => {
   }
 };
 
-const _isEmptyObject = function(obj) {
-  for (let name in obj) return false;
-  return true;
+const isEmptyObject = (obj) => {
+  return Object.keys(obj).length === 0;
 };
 
-const diff = function(obj1, obj2) {
+const diff = (obj1, obj2) => {
   const result = {};
   let change;
-  for (let key in obj1) {
-    if (typeof obj2[key] == 'object' && typeof obj1[key] == 'object') {
+  Object.keys(obj1).forEach(key => {
+    if (typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
       change = diff(obj1[key], obj2[key]);
-      if (_isEmptyObject(change) === false) {
+      if (isEmptyObject(change) === false) {
         result[key] = change;
       }
     }
-    else if (obj2[key] != obj1[key]) {
+    else if (obj2[key] !== obj1[key]) {
       result[key] = obj2[key];
     }
-  }
+  });
   return result;
 };
 
 module.exports = {
   getValue,
-  diff
+  diff,
+  isEmptyObject
 };

@@ -1,7 +1,8 @@
 'use strict';
 
 const chalk = require('chalk');
-const { getValue } = require('./utils');
+const pretty = require('js-object-pretty-print').pretty;
+const { diff, isEmptyObject } = require('./utils');
 
 module.exports = (sample, result, options) => {
   const errors = {
@@ -31,6 +32,15 @@ module.exports = (sample, result, options) => {
         const receivedValue = normalizedResultHeaders[key];
         if (value !== receivedValue) errors.headers.push(`- expected value ${chalk.white(value)} in header ${chalk.white(key)} but got ${chalk.white(receivedValue)}`);
       });
+    }
+  }
+
+  if (sample.body) {
+    if (options.body && options.body.keysOnly) {
+
+    } else {
+      const bodyDiffs = diff(sample.body, result.body);
+      if (!isEmptyObject(bodyDiffs)) errors.body.push(`- differences between expected sample and received result:\n${chalk.white(pretty(bodyDiffs))}`);
     }
   }
 

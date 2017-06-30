@@ -61,6 +61,8 @@ getTests()
                     console.log(chalk.white('DESCRIPTION:'));
                     console.log(description);
                   }
+                  console.log(chalk.white('SAMPLE:'));
+                  console.log(pretty(output));
                   console.log(chalk.white('RESULT:'));
                   console.log(pretty(result));
                 }

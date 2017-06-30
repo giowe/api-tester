@@ -1,8 +1,5 @@
 'use strict';
-
-const chalk = require('chalk');
 const pretty = require('js-object-pretty-print').pretty;
-
 const isEmptyObject = function(obj) {
   for (let name in obj) return false;
   return true;
@@ -25,13 +22,11 @@ const diff = function(obj1, obj2) {
   return result;
 };
 
-const getErrorMessage = (result, sample, type, isError) => {
-  if (type === 'application/json') {
-    const errorData =diff(sample, result);
-    if (isError) console.log(chalk.red('Differences: ', pretty(errorData)));
-    else console.log(chalk.yellow('Differences: ', pretty(errorData)));
-    console.log('Expected: \n' + pretty(sample) + ', but received: \n' + pretty(result));
+const getErrorMessage = (result, sample, type) => {
+  if (type && type.toLowerCase().indexOf('application/json') !== -1) {
+    return `Differences:\n${pretty(diff(sample, result))}\nExpected:\n${pretty(sample)}\nbut received:\n${pretty(result)}`;
   }
+  return `Expected:\n${sample}\nbut received:\n${result}`;
 };
 
 module.exports = getErrorMessage;

@@ -115,7 +115,6 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         });
     })
     .catch(err => {
-      console.log(err);
       reject(err);
     });
-});
+}).catch((err) => { console.log(err); });

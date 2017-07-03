@@ -42,7 +42,7 @@ const resolveBundles = (testPaths, prefix = localDir) => {
 module.exports = (tests, options) => new Promise((resolve, reject) => {
   if (tests && tests.length) {
     if (options) Object.assign(params, options);
-    console.log(params, options)
+    console.log(params, options);
     try {
       params.tests.push(...resolveBundles(tests));
     } catch(err) {

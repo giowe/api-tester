@@ -16,20 +16,21 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         tests.map(({ name, test }) => {
           return () => new Promise((resolve, reject) => {
             test()
-              .then(({ description, input = { }, output, uri, method, options }) => {
-                const { headers = {}, body = {} } = input;
+              .then(({ description, input = {}, output, uri, method, options }) => {
+                const { headers, body } = input;
 
                 const requestParams = {
                   uri,
                   method,
-                  headers: input.headers
+                  headers
                 };
 
-                const headerValue = getValue(headers, 'content-type');
-                if (typeof headerValue === 'string' && headerValue.toLowerCase() === 'application/json') requestParams.json = body;
-
+                if (headers) {
+                  const headerValue = getValue(headers, 'content-type');
+                  if (typeof headerValue === 'string' && headerValue.toLowerCase() === 'application/json') requestParams.json = body;
+                }
                 //TODO: testare il passaggio di una stringa
-                if (!requestParams.json) {
+                if (!requestParams.json && body) {
                   requestParams.body = body;
                 }
 

@@ -63,7 +63,7 @@ If you have installed Api Tester as a dependency you simply have to call it pass
   verbose: true
 }
 ```
-The function will return a Promise that is executed when all tests are finished.
+The function will return a Promise that is resolved when all tests are finished.
 
 ##### Example:  
 
@@ -160,7 +160,7 @@ module.exports = () => new Promise((resolve, reject) => {
 });
 ```
 
-- This is a test of a POST request that requires a token. So first a Promise, which gets the token, is executed and then this information is added to the object params:
+- This is a test of a POST request that requires an auth token. In order to execute the login we first have to resolve a promise which requires the token; this token is then added to the request headers of the test:
 ```
 'use strict';
 

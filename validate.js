@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const pretty = require('js-object-pretty-print').pretty;
 const { diff, isEmptyObject } = require('./utils');
 
-module.exports = (sample, result, options) => {
+module.exports = (sample, result, options = {}) => {
   const errors = {
     status: [],
     headers: [],

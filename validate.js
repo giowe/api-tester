@@ -2,7 +2,7 @@
 
 const chalk = require('chalk');
 const pretty = require('js-object-pretty-print').pretty;
-const { diff, isEmptyObject } = require('./utils');
+const { diff, diffKeysOnly, isEmptyObject } = require('./utils');
 
 module.exports = (sample, result, options) => {
   const errors = {
@@ -36,13 +36,13 @@ module.exports = (sample, result, options) => {
   }
 
   if (sample.body) {
+    let bodyDiffs;
     if (options && options.body && options.body.keysOnly) {
-      //todo keys only
+      bodyDiffs = diffKeysOnly(sample.body, result.body);
     } else {
-      const bodyDiffs = diff(sample.body, result.body);
-      if (!isEmptyObject(bodyDiffs)) errors.body.push(`- differences between expected sample and received result:\n${chalk.white(pretty(bodyDiffs))}`);
+      bodyDiffs = diff(sample.body, result.body);
     }
+    if (!isEmptyObject(bodyDiffs)) errors.body.push(`- differences between expected sample and received result:\n${chalk.white(pretty(bodyDiffs))}`);
   }
-
   return errors;
 };

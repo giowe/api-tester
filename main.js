@@ -17,6 +17,10 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
           return () => new Promise((resolve, reject) => {
             test()
               .then(({ description, input = {}, output, uri, method, options }) => {
+                Object.entries({ output, uri, method }).forEach(([key, value]) => {
+                  if (!value) throw new Error(`Missing '${key}' value in test params.`);
+                });
+
                 const { headers, body } = input;
 
                 const requestParams = {
@@ -111,7 +115,6 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         });
     })
     .catch(err => {
-      console.log(err);
       reject(err);
     });
-});
+}).catch((err) => { console.log(err); });

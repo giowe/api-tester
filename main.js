@@ -68,11 +68,8 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                       console.log(description);
                     }
 
-                    console.log(chalk.white('URI:'));
-                    console.log(uri);
-
-                    console.log(chalk.white('METHOD:'));
-                    console.log(method);
+                    console.log(chalk.white('URI:'), uri);
+                    console.log(chalk.white('METHOD:'), method);
                   }
 
                   if (verbose || bodyErrorsL || headersErrorsL || statusErrorsL) {

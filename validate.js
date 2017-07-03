@@ -23,7 +23,7 @@ module.exports = (sample, result, options) => {
     Object.entries(sample.headers).map(([key, value]) => normalizedSampleHeaders[key.toLowerCase()] = value);
     Object.entries(result.headers).map(([key, value]) => normalizedResultHeaders[key.toLowerCase()] = value);
 
-    if (options.headers && options.headers.keysOnly) {
+    if (options && options.headers && options.headers.keysOnly) {
       Object.keys(normalizedSampleHeaders).forEach(key => {
         if (!(key in normalizedResultHeaders)) errors.headers.push(`- missing header ${chalk.white(key)};`);
       });
@@ -36,7 +36,7 @@ module.exports = (sample, result, options) => {
   }
 
   if (sample.body) {
-    if (options.body && options.body.keysOnly) {
+    if (options && options.body && options.body.keysOnly) {
       //todo keys only
     } else {
       const bodyDiffs = diff(sample.body, result.body);

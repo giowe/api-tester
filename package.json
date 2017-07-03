@@ -11,14 +11,17 @@
     "url": "git+https://github.com/giowe/api-tester.git"
   },
   "author": "Giovanni Bruno",
-  "contributors": [{
-    "name" : "Giovanni Bruno",
-    "email" : "giovanni.bruno@soluzionifutura.it",
-    "url" : "www.soluzionifutura.it"
-  }, {
-    "name" : "Nicolò Fuccella",
-    "email" : "nico.fuccella@gmail.com"
-  }],
+  "contributors": [
+    {
+      "name": "Giovanni Bruno",
+      "email": "giovanni.bruno@soluzionifutura.it",
+      "url": "www.soluzionifutura.it"
+    },
+    {
+      "name": "Nicolò Fuccella",
+      "email": "nico.fuccella@gmail.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/giowe/api-tester/issues"

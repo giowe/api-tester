@@ -39,7 +39,17 @@ const resolveBundles = (testPaths, prefix = localDir) => {
   return out;
 };
 
-module.exports = () => new Promise((resolve, reject) => {
+module.exports = (tests, options) => new Promise((resolve, reject) => {
+  if (tests && tests.length) {
+    if (options) Object.assign(params, options);
+    console.log(params, options);
+    try {
+      params.tests.push(...resolveBundles(tests));
+    } catch(err) {
+      return reject(err);
+    }
+    return resolve(params);
+  }
 
   if (argv._.length) {
     try {
@@ -50,13 +60,13 @@ module.exports = () => new Promise((resolve, reject) => {
     return resolve(params);
   }
 
-  const tests = fs.readdirSync(localDir).filter(file => file.slice(0, 2) === 't-' && path.extname(file) === '.js');
-  if (!tests.length) {
+  const folderTests = fs.readdirSync(localDir).filter(file => file.slice(0, 2) === 't-' && path.extname(file) === '.js');
+  if (!folderTests.length) {
     return reject('No tests found in this folder;\nnote that all tests must be .js files and begin with "t-" prefix to be detected.');
   }
 
   if (argv.a || argv.all) {
-    params.tests.push(...resolveBundles(tests));
+    params.tests.push(...resolveBundles(folderTests));
     return resolve(params);
   }
 
@@ -64,8 +74,8 @@ module.exports = () => new Promise((resolve, reject) => {
     type: 'list',
     name: 'tests',
     message: 'Select the test to execute: ',
-    choices: tests,
-    default: tests[0]
+    choices: folderTests,
+    default: folderTests[0]
   }).then((result) => {
     try {
       params.tests.push(...resolveBundles([result.tests]));

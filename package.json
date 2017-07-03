@@ -1,6 +1,6 @@
 {
   "name": "api-tester",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Api Tester is a tool which allows you to perform tests on apis comparing results with expected outputs.",
   "bin": {
     "t": "./bin/tester"
@@ -39,7 +39,7 @@
     "url": "https://github.com/giowe/api-tester/issues"
   },
   "dependencies": {
-    "chalk": "^1.1.3",
+    "chalk": "^2.0.1",
     "inquirer": "^3.1.1",
     "js-object-pretty-print": "^0.3.0",
     "promise.waterfall": "^3.2.0",

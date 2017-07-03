@@ -110,11 +110,11 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         })
         .catch(({ name, err }) => {
           console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${name} ***`));
-          console.log(err);
-          reject(err);
+          reject({ name, err });
         });
     })
-    .catch(err => {
+    .catch(({ name, err }) => {
+      console.log(chalk.red(`*** ERRORS IN TEST ${name} ***`));
       reject(err);
     });
 }).catch((err) => { console.log(err); });

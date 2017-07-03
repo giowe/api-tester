@@ -25,8 +25,11 @@ const resolveBundles = (testPaths, prefix = localDir) => {
     try {
       test = require(absoluteTestPath);
     } catch (err) {
-      console.log(`Can't find ${absoluteTestPath}`);
-      process.exit();
+      if (err.message === `Cannot find module '${absoluteTestPath}'`) {
+        console.log(`Cannot find test '${absoluteTestPath}'`);
+        process.exit();
+      }
+      throw({ err, name: path.parse(testPath).name });
     }
     if (typeof test === 'function') {
       out.push({
@@ -44,12 +47,20 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
   if (tests && tests.length) {
     if (options) Object.assign(params, options);
     console.log(params, options);
-    params.tests.push(...resolveBundles(tests));
+    try {
+      params.tests.push(...resolveBundles(tests));
+    } catch(err) {
+      return reject(err);
+    }
     return resolve(params);
   }
 
   if (argv._.length) {
-    params.tests.push(...resolveBundles(argv._));
+    try {
+      params.tests.push(...resolveBundles(argv._));
+    } catch(err) {
+      return reject(err);
+    }
     return resolve(params);
   }
 
@@ -59,7 +70,11 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
   }
 
   if (argv.a || argv.all) {
-    params.tests.push(...resolveBundles(folderTests));
+    try {
+      params.tests.push(...resolveBundles(folderTests));
+    } catch(err) {
+      return reject(err);
+    }
     return resolve(params);
   }
 
@@ -70,7 +85,11 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
     choices: folderTests,
     default: folderTests[0]
   }).then((result) => {
-    params.tests.push(...resolveBundles([result.tests]));
+    try {
+      params.tests.push(...resolveBundles([result.tests]));
+    } catch(err) {
+      return reject(err);
+    }
     resolve(params);
   });
 });

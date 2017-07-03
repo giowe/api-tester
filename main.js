@@ -51,9 +51,9 @@ getTests()
                 const headersErrorsL = headersErrors.length;
                 const bodyErrorsL = bodyErrors.length;
 
-                if (statusErrorsL) errorMessage.push(`${chalk.white('STATUS ERRORS:')}\n${statusErrors.join('\n')}`);
-                if (headersErrorsL) errorMessage.push(`${chalk.white('HEADERS ERRORS:')}\n${headersErrors.join('\n')}`);
-                if (bodyErrorsL) errorMessage.push(`${chalk.white('BODY ERRORS:')}\n${bodyErrors.join('\n')}`);
+                if (statusErrorsL) errorMessage.push(`${chalk.red('STATUS ERRORS:')}\n${statusErrors.join('\n')}`);
+                if (headersErrorsL) errorMessage.push(`${chalk.red('HEADERS ERRORS:')}\n${headersErrors.join('\n')}`);
+                if (bodyErrorsL) errorMessage.push(`${chalk.red('BODY ERRORS:')}\n${bodyErrors.join('\n')}`);
 
                 console.log(chalk.white('TEST:'), name);
                 if (verbose) {
@@ -63,6 +63,9 @@ getTests()
                   }
                   console.log(chalk.white('SAMPLE:'));
                   console.log(pretty(output));
+                }
+
+                if (verbose || bodyErrorsL || headersErrorsL || statusErrorsL) {
                   console.log(chalk.white('RESULT:'));
                   console.log(pretty(result));
                 }

@@ -13,34 +13,20 @@ const isEmptyObject = (obj) => {
   return Object.keys(obj).length === 0;
 };
 
-const diff = (obj1, obj2) => {
+const diff = (obj1, obj2, keysOnly = false) => {
   const result = {};
   let change;
   Object.keys(obj1).forEach(key => {
-    if (typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
+    if (obj2[key] && obj1[key] && typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
       change = diff(obj1[key], obj2[key]);
       if (isEmptyObject(change) === false) {
         result[key] = change;
       }
     }
-    else if (obj2[key] !== obj1[key]) {
+    else if (!keysOnly && obj2[key] !== obj1[key]) {
       result[key] = obj2[key];
     }
-  });
-  return result;
-};
-
-const diffKeysOnly = (obj1, obj2) => {
-  const result = {};
-  let change;
-  Object.keys(obj1).forEach(key => {
-    if (typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
-      change = diffKeysOnly(obj1[key], obj2[key]);
-      if (isEmptyObject(change) === false) {
-        result[key] = change;
-      }
-    }
-    else if (typeof obj2[key] !== 'undefined') {
+    else if (keysOnly && typeof obj2[key] !== 'undefined') {
       result[key] = obj2[key];
     }
   });
@@ -50,6 +36,5 @@ const diffKeysOnly = (obj1, obj2) => {
 module.exports = {
   getValue,
   diff,
-  diffKeysOnly,
   isEmptyObject
 };

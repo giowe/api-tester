@@ -38,7 +38,7 @@ module.exports = (sample, result, options) => {
   if (sample.body) {
     let bodyDiffs;
     if (options && options.body && options.body.keysOnly) {
-      bodyDiffs = diffKeysOnly(sample.body, result.body);
+      bodyDiffs = diff(sample.body, result.body, true);
     } else {
       bodyDiffs = diff(sample.body, result.body);
     }

@@ -115,7 +115,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         })
         .catch(({ name, err }) => {
           if (name) console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${name} ***`));
-          reject({ name, err });
+          reject(err);
         });
     })
     .catch(({ name, err }) => {

@@ -18,12 +18,10 @@ const diff = (obj1, obj2, keysOnly = false) => {
   let change;
   Object.keys(obj1).forEach(key => {
     if (obj2[key] && obj1[key] && typeof obj2[key] === 'object' && typeof obj1[key] === 'object') {
-      change = diff(obj1[key], obj2[key]);
-      if (isEmptyObject(change) === false) {
-        result[key] = change;
-      }
+      change = diff(obj1[key], obj2[key], keysOnly);
+      if (isEmptyObject(change) === false) result[key] = change;
     }
-    else if ((keysOnly && typeof obj2[key] !== 'undefined') || (!keysOnly && obj2[key] !== obj1[key])) {
+    else if ((keysOnly && typeof obj2[key] === 'undefined') || (!keysOnly && obj2[key] !== obj1[key])) {
       result[key] = obj2[key];
     }
   });

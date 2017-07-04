@@ -68,8 +68,10 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                       console.log(description);
                     }
 
-                    console.log(chalk.white('URI:'), uri);
-                    console.log(chalk.white('METHOD:'), method);
+                    console.log(chalk.white('URI:'), uri, '\n');
+                    console.log(chalk.white('METHOD:'), method, '\n');
+                    console.log(chalk.white('INPUT HEADERS:'), input.headers, '\n');
+                    console.log(chalk.white('INPUT BODY:'), requestParams.json? pretty(input.body) :input.body, '\n');
                   }
 
                   if (verbose || bodyErrorsL || headersErrorsL || statusErrorsL) {

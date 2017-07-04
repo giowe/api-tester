@@ -21,6 +21,7 @@ const resolveBundles = (testPaths, prefix = localDir) => {
   const out = [];
   testPaths.forEach(testPath => {
     let test;
+    const name = path.parse(testPath).name;
     const absoluteTestPath = path.isAbsolute(testPath)? testPath : path.join(prefix, testPath);
     try {
       test = require(absoluteTestPath);
@@ -29,15 +30,17 @@ const resolveBundles = (testPaths, prefix = localDir) => {
         console.log(`Cannot find test '${absoluteTestPath}'`);
         process.exit();
       }
-      throw({ err, name: path.parse(testPath).name });
+      throw({ err, name });
     }
     if (typeof test === 'function') {
       out.push({
         name: path.parse(testPath).name,
         test
       });
-    } else {
+    } else if (Array.isArray(test)) {
       out.push(...resolveBundles(test, path.parse(absoluteTestPath).dir));
+    } else {
+      throw({ err: new Error('Invalid test!'), name });
     }
   });
   return out;
@@ -73,7 +76,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
     try {
       params.tests.push(...resolveBundles(folderTests));
     } catch(err) {
-      return reject({ err });
+      return reject(err);
     }
     return resolve(params);
   }

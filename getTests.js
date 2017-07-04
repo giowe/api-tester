@@ -59,21 +59,21 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
     try {
       params.tests.push(...resolveBundles(argv._));
     } catch(err) {
-      return reject(err);
+      return reject({ err });
     }
     return resolve(params);
   }
 
   const folderTests = fs.readdirSync(localDir).filter(file => file.slice(0, 2) === 't-' && path.extname(file) === '.js');
   if (!folderTests.length) {
-    return reject('No tests found in this folder;\nnote that all tests must be .js files and begin with "t-" prefix to be detected.');
+    return reject({ err: 'No tests found in this folder;\nnote that all tests must be .js files and begin with "t-" prefix to be detected.' });
   }
 
   if (argv.a || argv.all) {
     try {
       params.tests.push(...resolveBundles(folderTests));
     } catch(err) {
-      return reject(err);
+      return reject({ err });
     }
     return resolve(params);
   }

@@ -100,7 +100,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                 });
               })
               .catch(err => {
-                console.log(chalk.red(`*** ${name} ***`));
+                if (name) console.log(chalk.red(`*** ${name} ***`));
                 console.log(err);
                 resolve();
               });
@@ -114,12 +114,12 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
           resolve();
         })
         .catch(({ name, err }) => {
-          console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${name} ***`));
+          if (name) console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${name} ***`));
           reject({ name, err });
         });
     })
     .catch(({ name, err }) => {
-      console.log(chalk.red(`*** ERRORS IN TEST ${name} ***`));
+      if (name) console.log(chalk.red(`*** ERRORS IN TEST ${name} ***`));
       reject(err);
     });
 }).catch((err) => { console.log(err); });

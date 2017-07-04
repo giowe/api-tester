@@ -23,10 +23,7 @@ const diff = (obj1, obj2, keysOnly = false) => {
         result[key] = change;
       }
     }
-    else if (!keysOnly && obj2[key] !== obj1[key]) {
-      result[key] = obj2[key];
-    }
-    else if (keysOnly && typeof obj2[key] !== 'undefined') {
+    else if ((keysOnly && typeof obj2[key] !== 'undefined') || (!keysOnly && obj2[key] !== obj1[key])) {
       result[key] = obj2[key];
     }
   });

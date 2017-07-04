@@ -33,7 +33,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                   const headerValue = getValue(headers, 'content-type');
                   if (typeof headerValue === 'string' && headerValue.toLowerCase() === 'application/json') requestParams.json = body;
                 }
-                //TODO: testare il passaggio di una stringa
+
                 if (!requestParams.json && body) {
                   requestParams.body = body;
                 }

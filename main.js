@@ -16,8 +16,8 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         tests.map(({ name, test }) => {
           return () => new Promise((resolve, reject) => {
             test()
-              .then(({ description, input = {}, output, uri, method, options }) => {
-                Object.entries({ output, uri, method }).forEach(([key, value]) => {
+              .then(({ description, input = {}, output: expectedOutput, uri, method, options }) => {
+                Object.entries({ output: expectedOutput, uri, method }).forEach(([key, value]) => {
                   if (!value) throw new Error(`Missing '${key}' value in test params.`);
                 });
 
@@ -51,7 +51,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                     result.body = body;
                   }
 
-                  const { status: statusErrors, headers: headersErrors, body: bodyErrors } = validate(output, result, options);
+                  const { status: statusErrors, headers: headersErrors, body: bodyErrors } = validate(expectedOutput, result, options);
                   const errorMessage = [];
                   const statusErrorsL = statusErrors.length;
                   const headersErrorsL = headersErrors.length;
@@ -76,7 +76,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
 
                   if (verbose || bodyErrorsL || headersErrorsL || statusErrorsL) {
                     console.log(chalk.white('EXPECTED:'));
-                    console.log(pretty(output));
+                    console.log(pretty(expectedOutput));
                     console.log(chalk.white('RESULT:'));
                     console.log(pretty(result));
                   }
@@ -84,15 +84,12 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                   if (errorMessage.length) console.log(errorMessage.join('\n'));
 
                   let testStatus;
-                  if (statusErrorsL && headersErrorsL && bodyErrorsL) {
+                  if (statusErrorsL || headersErrorsL || bodyErrorsL) {
                     testStatus = chalk.red('\u2718', name);
                     summary.push(chalk.red(`\u2718 Failure: ${name}`));
                   } else if (!statusErrorsL && !headersErrorsL && !bodyErrorsL) {
                     testStatus = chalk.green('\u2714', name);
                     summary.push(chalk.green(`\u2714 Succeeded: ${name}`));
-                  } else {
-                    testStatus = chalk.yellow('\u2717', name);
-                    summary.push(chalk.yellow(`\u2717 Partial failure: ${name}`));
                   }
 
                   console.log(testStatus, '\n');

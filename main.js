@@ -141,12 +141,12 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
           resolve();
         })
         .catch(({ name, err }) => {
-          if (name) console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${name} ***`));
+          if (name && err) console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${name} ***`));
           reject(err);
         });
     })
     .catch(({ name, err }) => {
-      if (name) console.log(chalk.red(`*** ERRORS IN TEST ${name} ***`));
+      if (name && err) console.log(chalk.red(`*** ERRORS IN TEST ${name} ***`));
       reject(err);
     });
 }).catch((err) => { console.log(err); });

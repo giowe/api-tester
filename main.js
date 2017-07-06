@@ -140,13 +140,19 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
           summary.forEach((data) => console.log(data));
           resolve();
         })
-        .catch(({ name, err }) => {
-          if (name && err) console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${name} ***`));
+        .catch((err) => {
+          if (err.name) {
+            console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${err.name} ***`));
+            return reject(err.err);
+          }
           reject(err);
         });
     })
-    .catch(({ name, err }) => {
-      if (name && err) console.log(chalk.red(`*** ERRORS IN TEST ${name} ***`));
+    .catch((err) => {
+      if (err.name) {
+        console.log(chalk.red(`*** ERRORS IN TEST ${err.name} ***`));
+        return reject(err.err);
+      }
       reject(err);
     });
 }).catch((err) => { console.log(err); });

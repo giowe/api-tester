@@ -13,7 +13,7 @@ module.exports = (sample, result, options) => {
 
   if (sample.status) {
     if (sample.status !== result.status) {
-      errors.status.push(`- expected ${chalk.red(sample.status)} but received ${chalk.redresult.status)};`);
+      errors.status.push(`- expected ${chalk.red(sample.status)} but received ${chalk.red(result.status)};`);
     }
   }
 

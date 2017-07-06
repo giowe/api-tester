@@ -111,7 +111,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
           resolve();
         })
         .catch((err) => {
-          if (err.name) {
+          if (err.err) {
             console.log(chalk.red(`*** CONFIGURATION ERRORS IN TEST ${err.name} ***`));
             return reject(err.err);
           }
@@ -119,7 +119,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         });
     })
     .catch((err) => {
-      if (err.name) {
+      if (err.err) {
         console.log(chalk.red(`*** ERRORS IN TEST ${err.name} ***`));
         return reject(err.err);
       }

@@ -13,7 +13,7 @@ module.exports = (sample, result, options) => {
 
   if (sample.status) {
     if (sample.status !== result.status) {
-      errors.status.push(`- expected ${chalk.white(sample.status)} but received ${chalk.white(result.status)};`);
+      errors.status.push(`- expected ${chalk.red(sample.status)} but received ${chalk.red(result.status)};`);
     }
   }
 
@@ -25,19 +25,19 @@ module.exports = (sample, result, options) => {
 
     if (options && options.headers && options.headers.keysOnly) {
       Object.keys(normalizedSampleHeaders).forEach(key => {
-        if (!(key in normalizedResultHeaders)) errors.headers.push(`- missing header ${chalk.white(key)};`);
+        if (!(key in normalizedResultHeaders)) errors.headers.push(`- missing header ${chalk.red(key)};`);
       });
     } else {
       Object.entries(normalizedSampleHeaders).forEach(([key, value]) => {
         const receivedValue = normalizedResultHeaders[key];
-        if (value !== receivedValue) errors.headers.push(`- expected value ${chalk.white(value)} in header ${chalk.white(key)} but got ${chalk.white(receivedValue)}`);
+        if (value !== receivedValue) errors.headers.push(`- expected value ${chalk.red(value)} in header ${chalk.red(key)} but got ${chalk.red(receivedValue)}`);
       });
     }
   }
 
   if (sample.body) {
     const bodyDiffs = diff(sample.body, result.body, (options && options.body && options.body.keysOnly));
-    if (!isEmptyObject(bodyDiffs)) errors.body.push(`- differences between expected sample and received result:\n${chalk.white(pretty(bodyDiffs))}`);
+    if (!isEmptyObject(bodyDiffs)) errors.body.push(`- differences between expected sample and received result:\n${chalk.red(pretty(bodyDiffs))}`);
   }
   return errors;
 };

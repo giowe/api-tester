@@ -75,7 +75,7 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                   if (headersErrorsL) errorMessage.push(`${chalk.red('HEADERS ERRORS:')}\n${headersErrors.join('\n')}`);
                   if (bodyErrorsL) errorMessage.push(`${chalk.red('BODY ERRORS:')}\n${bodyErrors.join('\n')}`);
 
-                  console.log(chalk.white('TEST:'), name);
+                  console.log(('TEST:'), name);
                   if (verbose) {
                     if (description) {
                       console.log(chalk.white('DESCRIPTION:'));

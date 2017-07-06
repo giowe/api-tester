@@ -1,0 +1,66 @@
+body {
+  font-family: monospace;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.fail{
+  color: red;
+}
+.success{
+  color: green;
+}
+
+.success, .fail {
+  font-size: 22px;
+  text-align: center;
+  cursor: pointer;
+}
+
+table{
+  margin-bottom: 20px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  max-width: 50%;
+}
+
+td {
+  white-space:pre;
+  max-width: 60vw;
+}
+
+th {
+  /*width: 10px;*/
+  white-space: nowrap;
+}
+
+@media (min-width: 700px){
+  table {
+    width: 60vw;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    max-width: 100vw;
+  }
+}
+
+div.scrollable {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  border: 0;
+}
+
+tr.t-list-contents-contents-0-visibility {
+  display: none;
+}
+
+tr.fail, tr.success {
+  display: table-row;
+}

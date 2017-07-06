@@ -9,7 +9,7 @@ const validate = require('./validate');
 const { getValue } = require('./utils');
 const fs = require('fs');
 const path = require('path');
-const getHtml = require('path');
+const getHtml = require('./getHtml');
 
 const summary = [];
 const jsonArray = [];
@@ -103,7 +103,8 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                     summary.push(chalk.red(`\u2718 Failure: ${name}`));
                     if (outfile) {
                       Object.assign(json, {
-                        passed: false
+                        passed: false,
+                        result
                       });
                       jsonArray.push(json);
                     }
@@ -112,9 +113,10 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                     summary.push(chalk.green(`\u2714 Succeeded: ${name}`));
                     if (outfile) {
                       Object.assign(json, {
-                        passed: true
+                        passed: true,
+                        result
                       });
-                      jsonArray.push(json)
+                      jsonArray.push(json);
                     }
                   }
 
@@ -131,10 +133,13 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         })
       )
         .then(() => {
-          const jsonPath = path.join(process.cwd(), outfile);
-          fs.writeFileSync(jsonPath, JSON.stringify(jsonArray, null, 2), 'utf8');
-          const htmlOut = path.basename(jsonPath, '.json') + '.html';
-          fs.writeFileSync(path.join(process.cwd(), htmlOut), getHtml(jsonPath), 'utf8');
+          if (outfile) {
+            console.log('ciao');
+            const jsonPath = path.join(process.cwd(), outfile);
+            fs.writeFileSync(jsonPath, JSON.stringify(jsonArray, null, 2), 'utf8');
+            const htmlOut = path.basename(jsonPath, '.json') + '.html';
+            fs.writeFileSync(path.join(process.cwd(), htmlOut), getHtml(jsonPath), 'utf8');
+          }
           if (tests.length <= 1) return resolve();
           console.log(chalk.white('SUMMARY:'));
           summary.forEach((data) => console.log(data));

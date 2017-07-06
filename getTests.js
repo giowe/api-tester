@@ -14,6 +14,7 @@ if (argv.v || argv.version) {
 
 const params = {
   verbose: argv.verbose,
+  outfile: argv.o || argv.outfile,
   tests: []
 };
 

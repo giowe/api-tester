@@ -7,11 +7,15 @@ const getTests = require('./getTests.js');
 const waterfall = require('promise.waterfall');
 const validate = require('./validate');
 const { getValue } = require('./utils');
+const fs = require('fs');
+const path = require('path');
+const getHtml = require('path');
 
 const summary = [];
+const jsonArray = [];
 module.exports = (tests, options) => new Promise((resolve, reject) => {
   getTests(tests, options)
-    .then(({ verbose, tests }) => {
+    .then(({ verbose, outfile, tests }) => {
       waterfall(
         tests.map(({ name, test }) => {
           return () => new Promise((resolve, reject) => {
@@ -20,6 +24,16 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                 Object.entries({ output: expectedOutput, uri, method }).forEach(([key, value]) => {
                   if (!value) throw new Error(`Missing '${key}' value in test params.`);
                 });
+
+                const json = outfile ? {
+                  name,
+                  description,
+                  input,
+                  expectedOutput,
+                  uri,
+                  method,
+                  options
+                } : {};
 
                 const { headers, body } = input;
 
@@ -87,9 +101,21 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                   if (statusErrorsL || headersErrorsL || bodyErrorsL) {
                     testStatus = chalk.red('\u2718', name);
                     summary.push(chalk.red(`\u2718 Failure: ${name}`));
+                    if (outfile) {
+                      Object.assign(json, {
+                        passed: false
+                      });
+                      jsonArray.push(json);
+                    }
                   } else if (!statusErrorsL && !headersErrorsL && !bodyErrorsL) {
                     testStatus = chalk.green('\u2714', name);
                     summary.push(chalk.green(`\u2714 Succeeded: ${name}`));
+                    if (outfile) {
+                      Object.assign(json, {
+                        passed: true
+                      });
+                      jsonArray.push(json)
+                    }
                   }
 
                   console.log(testStatus, '\n');
@@ -105,6 +131,10 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
         })
       )
         .then(() => {
+          const jsonPath = path.join(process.cwd(), outfile);
+          fs.writeFileSync(jsonPath, JSON.stringify(jsonArray, null, 2), 'utf8');
+          const htmlOut = path.basename(jsonPath, '.json') + '.html';
+          fs.writeFileSync(path.join(process.cwd(), htmlOut), getHtml(jsonPath), 'utf8');
           if (tests.length <= 1) return resolve();
           console.log(chalk.white('SUMMARY:'));
           summary.forEach((data) => console.log(data));

@@ -53,6 +53,96 @@ You can pass ```--verbose``` flag if you want a more detailed output.
 $  t t-test1.js t-all-bundle.js --verbose
 $  t --all --verbose
 ```
+You can pass ```--outfile``` or ```-o``` flag followed by a name to generate a json and an html file with that name. In these files there will be a summary of tests' execution.
+```
+$  t t-test1.js --outfile outfile.js
+```
+This will generate a .json file as the following:
+```
+[
+  {
+    "name":"t-get-contents-contents",
+    "description":"get contents",
+    "input":{
+
+    },
+    "expectedOutput":{
+      "status":200
+    },
+    "uri":"http://localhost:8000/contents/contents/en/dolorem-animi-incidunt-eos-magnam-en",
+    "method":"GET",
+    "executionTime":180,
+    "passed":true,
+    "result":{
+      "status":200,
+      "headers":{
+        "content-type":"application/json; charset=utf-8",
+        "content-length":"901",
+        "date":"Fri, 07 Jul 2017 16:17:29 GMT",
+        "connection":"close"
+      },
+      "body":{
+        "data":{
+          "id":59,
+          "lang":"en",
+          "creationDate":"2015-11-11T23:00:00.000Z",
+          "modificationDate":"1985-08-07T22:00:00.000Z",
+          "permalink":"dolorem-animi-incidunt-eos-magnam-en",
+          "title":"Dolorem animi Incidunt eos magnam EN",
+          "body":"Sint dolorem dolor sed eaque saepe. Ut sunt ad molestiae. Enim provident id aliquam voluptatem ducimus.",
+          "status":1,
+          "featuredImage":"http://lorempixel.com/g/1024/768/",
+          "asides":null,
+          "categories":{
+            "count":1,
+            "data":[
+              {
+                "id":2,
+                "lang":"en",
+                "permalink":"hic-voluptas-et-ducimus-voluptatem-en",
+                "label":"Hic voluptas Et ducimus voluptatem EN",
+                "parentCategoryId":null
+              }
+            ]
+          },
+          "tags":{
+            "count":1,
+            "data":[
+              {
+                "id":8,
+                "lang":"en",
+                "permalink":"fuga-iure-quia-nihil-ut-sunt-en",
+                "label":"Fuga iure quia Nihil ut sunt EN"
+              }
+            ]
+          },
+          "type":{
+            "data":{
+              "id":1,
+              "lang":"en",
+              "permalink":"pages",
+              "label":"Pages"
+            }
+          },
+          "author":{
+            "data":{
+              "id":1,
+              "login":"Gibson_Annamae",
+              "status":1,
+              "firstName":"Gust",
+              "lastName":"Gusikowski"
+            }
+          }
+        }
+      }
+    }
+  }
+]
+```
+and an .html file as the following: 
+
+//TODO
+
 
 #### Dev Dependency
 
@@ -61,10 +151,12 @@ If you have installed Api Tester as a dependency you simply have to call it pass
 - optionally, an option object with the following structure:
 ```
 {
-  verbose: true
+  verbose: true,  // Or false. Optional
+  outfile: <fileName> // Optional
 }
 ```
 The function will return a Promise that is resolved when all tests are finished.
+Using the outfile field you will generate a json and an html file with the specified name. In these files there will be a summary of tests' execution.
 
 ##### Example:  
 

@@ -52,7 +52,11 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                   requestParams.body = body;
                 }
 
+                const start = new Date();
                 request(requestParams, (err, res, body) => {
+                  Object.assign(json, {
+                    executionTime: new Date() - start
+                  });
                   if (err) return reject({ name, err });
 
                   const result = {
@@ -95,7 +99,16 @@ module.exports = (tests, options) => new Promise((resolve, reject) => {
                     console.log(pretty(result));
                   }
 
-                  if (errorMessage.length) console.log(errorMessage.join('\n'));
+                  if (errorMessage.length) {
+                    if (outfile) {
+                      Object.assign(json, {
+                        errorMessage: errorMessage.map(message =>
+                          message.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g
+                          , '')).join('\n')
+                      });
+                    }
+                    console.log(errorMessage.join('\n'));
+                  }
 
                   let testStatus;
                   if (statusErrorsL || headersErrorsL || bodyErrorsL) {

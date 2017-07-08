@@ -1,5 +1,16 @@
+html, body {
+  padding: 0;
+  margin: 0;
+}
+
+
 body {
   font-family: monospace;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  display: block;
+  text-align: center;
 }
 
 table {
@@ -8,10 +19,19 @@ table {
 }
 
 .fail{
-  color: red;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }
+table tbody tr{
+  color: #333;
+  background-color: #f7f7f9;
+}
+
 .success{
-  color: green;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
 }
 
 .success, .fail {
@@ -22,21 +42,29 @@ table {
 
 table{
   margin-bottom: 20px;
+  margin-right: 20vw;
+  margin-left: 20vw;
+  table-layout: auto;
 }
 
 table, th, td {
   border: 1px solid black;
-  max-width: 50%;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 td {
   white-space:pre;
-  max-width: 60vw;
+  max-height: 200px;
+  max-width:200px;
 }
 
 th {
-  /*width: 10px;*/
   white-space: nowrap;
+}
+
+tr {
+  max-height: 20px;
 }
 
 @media (min-width: 700px){
@@ -44,23 +72,60 @@ th {
     width: 60vw;
     margin-left: 20vw;
     margin-right: 20vw;
-    max-width: 100vw;
+    max-width: 60vw;
   }
 }
 
-div.scrollable {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: auto;
-  border: 0;
+.uriViewer {
+  white-space: normal;
+  overflow-x: scroll;
 }
 
-tr.t-list-contents-contents-0-visibility {
-  display: none;
+@media (min-width: 1000px) {
+  .uriViewer {
+    overflow-x: hidden;
+  }
 }
 
-tr.fail, tr.success {
-  display: table-row;
+div.fail, div.success {
+  column-width: 60vm;
+}
+
+div.partial {
+  overflow-x: visible;
+  overflow-y: hidden;
+  max-height: 20vw
+}
+
+div.full {
+  overflow-x: visible;
+  overflow-y: hidden;
+}
+
+.viewMore a{
+  cursor: pointer;
+  text-decoration: none;
+  font-size: large;
+  color: #666;
+}
+.viewMore {
+  text-align: center;
+}
+
+.container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.jsonViewer { }
+
+.footer{
+  position:fixed;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  margin-bottom:0px;
+  background-color: #fff;
+  text-transform: uppercase;
+  color: #666;
 }

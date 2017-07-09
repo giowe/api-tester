@@ -13,6 +13,8 @@
 ## What is Api Tester?
 
 Api Tester is a tool which allows you to perform tests on apis comparing results with expected outputs.
+Using Api Tester you can also verify the tests execution time. You can also save the output in a .json file or in an .html
+file.
 
 ## Installation
 
@@ -48,11 +50,13 @@ $  t t-all-tests-bundle.js test1.js test2.js
 ```
 $  t --all
 ```
+
 You can pass ```--verbose``` flag if you want a more detailed output.
 ```
 $  t t-test1.js t-all-bundle.js --verbose
 $  t --all --verbose
 ```
+
 You can pass ```--outfile``` or ```-o``` flag followed by a name to generate a json and an html file with that name. In these files there will be a summary of tests' execution.
 ```
 $  t t-test1.js --outfile outfile.js
@@ -139,10 +143,7 @@ This will generate a .json file as the following:
   }
 ]
 ```
-and an .html file as the following: 
-
-//TODO
-
+and an .html file like [this](doc/out.html).
 
 #### Dev Dependency
 

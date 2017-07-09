@@ -1,0 +1,229 @@
+<!DOCTYPE html> <html> <head> <title>out</title> <script>'use strict';
+
+const changeVisibility = (name, index) => {
+  const className = `${name}-${index}-visibility`;
+  const elements = document.getElementsByClassName(className);
+  const elementsLength = elements.length;
+  console.log('prima: ', elements[0].style.display)
+  for (let i = 0; i < elementsLength; i++) {
+    elements[i].style.display = elements[i].style.display === 'none' ? 'table-row': 'none';
+  }
+  console.log('fatto');
+  console.log('dopo: ', elements[0].style.display);
+};
+
+const changeToShow = (name, index, field) => {
+  const id = `${name}-${index}-${field}`;
+  const element = document.getElementById(id);
+  console.log('prima : ', element.firstElementChild,element.firstElementChild.className);
+  element.firstElementChild.className = element.firstElementChild.className === 'partial' ? 'full' : 'partial';
+  const viewMore = document.getElementById(`${id}-viewMore`);
+  viewMore.innerHTML = viewMore.innerHTML === 'Collapse' ? 'View more' : 'Collapse';
+  viewMore.href = viewMore.innerHTML === 'Collapse' ? `#${id}` : '#';
+  console.log('fatto');
+  console.log('dopo: ', element.firstElementChild, element.firstElementChild.className);
+};
+</script> <style>html, body {
+  padding: 0;
+  margin: 0;
+}
+
+
+body {
+  font-family: monospace;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  display: block;
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.fail{
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+table tbody tr{
+  color: #333;
+  background-color: #f7f7f9;
+}
+
+.success{
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.success, .fail {
+  font-size: 22px;
+  text-align: center;
+  cursor: pointer;
+}
+
+table{
+  margin-bottom: 20px;
+  margin-right: 20vw;
+  margin-left: 20vw;
+  table-layout: auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+td {
+  white-space:pre;
+  max-height: 200px;
+  max-width:200px;
+}
+
+th {
+  white-space: nowrap;
+}
+
+tr {
+  max-height: 20px;
+}
+
+@media (min-width: 700px){
+  table {
+    width: 60vw;
+    margin-left: 20vw;
+    margin-right: 20vw;
+    max-width: 60vw;
+  }
+}
+
+.uriViewer {
+  white-space: normal;
+  overflow-x: scroll;
+}
+
+@media (min-width: 1000px) {
+  .uriViewer {
+    overflow-x: hidden;
+  }
+}
+
+div.fail, div.success {
+  column-width: 60vm;
+}
+
+div.partial {
+  overflow-x: visible;
+  overflow-y: hidden;
+  max-height: 20vw
+}
+
+div.full {
+  overflow-x: visible;
+  overflow-y: hidden;
+}
+
+.viewMore a{
+  cursor: pointer;
+  text-decoration: none;
+  font-size: large;
+  color: #666;
+}
+.viewMore {
+  text-align: center;
+}
+
+.container {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.jsonViewer { }
+
+.footer{
+  position:fixed;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  margin-bottom:0px;
+  background-color: #fff;
+  text-transform: uppercase;
+  color: #666;
+}
+</style> <meta charset="UTF-8"> </head> <body> <section class="footer"><p>Generated at Fri Jul 07 2017 18:17:29 GMT+0200 (CEST)</p></section> <section class="container"> <ul style="list-style-type: none; -webkit-padding-start: 0;"> <li> <div id="t-get-contents-contents-0"> <table> <tr class=success> <th   
+                  colspan="2" 
+                  onclick="changeVisibility('t-get-contents-contents', '0')" width="60vm">
+                  <div class=success>t-get-contents-contents &#x2714;</div></th> </tr> <tr class="t-get-contents-contents-0-visibility" style="display: none;"> <th scope="row">Description</th> <td id="t-get-contents-contents-0-description" style="white-space: normal">get contents</td> </tr> <tr class="t-get-contents-contents-0-visibility t-get-contents-contents-0-uri" style="display: none;"> <th scope="row">URI</th> <td id="t-get-contents-contents-0-uri" class="uriViewer"><a href="http://localhost:8000/contents/contents/en/dolorem-animi-incidunt-eos-magnam-en">http://localhost:8000/contents/contents/en/dolorem-animi-incidunt-eos-magnam-en</a></td> </tr> <tr class="t-get-contents-contents-0-visibility t-get-contents-contents-0-method" style="display: none;"> <th scope="row">Method</th> <td id="t-get-contents-contents-0-method">GET</td> </tr> <tr class="t-get-contents-contents-0-visibility t-get-contents-contents-0-executionTime" style="display: none;"> <th scope="row">Execution time</th> <td id="t-get-contents-contents-0-executionTime">180ms</td> </tr> <tr class="t-get-contents-contents-0-visibility t-get-contents-contents-0-input" style="display: none;"> <th scope="row">Input</th> <td id="t-get-contents-contents-0-input"><div class="partial">{
+
+}
+</div></td> </tr>        <tr class="t-get-contents-contents-0-visibility t-get-contents-contents-0-output" style="display: none;"> <th scope="row">Output</th> <td id="t-get-contents-contents-0-output"><div class="partial">{
+  status: 200
+}
+</div></td> </tr>    <tr class="t-get-contents-contents-0-visibility t-get-contents-contents-0-result" style="display: none;"> <th scope="row">Result</th> <td id="t-get-contents-contents-0-result"><div class="partial">{
+  status: 200,
+  headers: {
+    content-type: "application/json; charset=utf-8",
+    content-length: "901",
+    date: "Fri, 07 Jul 2017 16:17:29 GMT",
+    connection: "close"
+  },
+  body: {
+    data: {
+      id: 59,
+      lang: "en",
+      creationDate: "2015-11-11T23:00:00.000Z",
+      modificationDate: "1985-08-07T22:00:00.000Z",
+      permalink: "dolorem-animi-incidunt-eos-magnam-en",
+      title: "Dolorem animi Incidunt eos magnam EN",
+      body: "Sint dolorem dolor sed eaque saepe. Ut sunt ad molestiae. Enim provident id aliquam voluptatem ducimus.",
+      status: 1,
+      featuredImage: "http://lorempixel.com/g/1024/768/",
+      asides: null,
+      categories: {
+        count: 1,
+        data: [
+          {
+            id: 2,
+            lang: "en",
+            permalink: "hic-voluptas-et-ducimus-voluptatem-en",
+            label: "Hic voluptas Et ducimus voluptatem EN",
+            parentCategoryId: null
+          }
+        ]
+      },
+      tags: {
+        count: 1,
+        data: [
+          {
+            id: 8,
+            lang: "en",
+            permalink: "fuga-iure-quia-nihil-ut-sunt-en",
+            label: "Fuga iure quia Nihil ut sunt EN"
+          }
+        ]
+      },
+      type: {
+        data: {
+          id: 1,
+          lang: "en",
+          permalink: "pages",
+          label: "Pages"
+        }
+      },
+      author: {
+        data: {
+          id: 1,
+          login: "Gibson_Annamae",
+          status: 1,
+          firstName: "Gust",
+          lastName: "Gusikowski"
+        }
+      }
+    }
+  }
+}
+</div></td> </tr> <tr class="t-get-contents-contents-0-visibility" style="display: none;"> <th colspan="2" class="viewMore"><a href="#"  onclick="changeToShow('t-get-contents-contents', '0', 'result')" id="t-get-contents-contents-0-result-viewMore">View more</a></th> </tr>        </table> </div> </li> </ul> </section> </body> </html>

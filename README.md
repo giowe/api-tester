@@ -14,6 +14,20 @@
 
 Api Tester is a tool which allows you to perform tests on apis comparing results with expected outputs.
 
+## Table of Contents
+
+*   [Installation](#installation)
+*   [How to use it](#how-to-use-it)
+    *   [Globally](#globally)
+    *   [Dev Dependency](#dev-dependency)
+    *   [Test Structure](#test-structure)
+    *   [Bundle Structure](#bundle-structure)
+*   [Test examples](#test-examples)
+*   [People](#people)
+*   [License](#license)
+
+
+
 ## Installation
 
 You can install Api Tester as a dev dependency using:

@@ -13,8 +13,6 @@
 ## What is Api Tester?
 
 Api Tester is a tool which allows you to perform tests on apis comparing results with expected outputs.
-Using Api Tester you can also verify the tests execution time. You can also save the output in a .json file or in an .html
-file.
 
 ## Installation
 
@@ -57,7 +55,7 @@ $  t t-test1.js t-all-bundle.js --verbose
 $  t --all --verbose
 ```
 
-You can pass ```--outfile``` or ```-o``` flag followed by a name to generate a json and an html file with that name. In these files there will be a summary of tests' execution.
+You can pass ```--outfile``` or ```-o``` flag followed by a file name to generate a .json and a .html file with a summary of tests execution.
 ```
 $  t t-test1.js --outfile outfile.js
 ```
@@ -143,7 +141,7 @@ This will generate a .json file as the following:
   }
 ]
 ```
-and an .html file like [this](doc/out.html).
+and an .html file like <a href="doc/example.html" target="_blank">this</a>.
 
 #### Dev Dependency
 
@@ -152,12 +150,13 @@ If you have installed Api Tester as a dependency you simply have to call it pass
 - optionally, an option object with the following structure:
 ```
 {
-  verbose: true,  // Or false. Optional
-  outfile: <fileName> // Optional
+  verbose: true,  // Default to false
+  outfile: <fileName> // Default to null
 }
 ```
+
 The function will return a Promise that is resolved when all tests are finished.
-Using the outfile field you will generate a json and an html file with the specified name. In these files there will be a summary of tests' execution.
+Using the outfile field you will generate a .json and a .html file with the specified name. In these files there will be a summary of tests execution.
 
 ##### Example:  
 
